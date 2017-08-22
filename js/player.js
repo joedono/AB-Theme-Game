@@ -11,6 +11,8 @@ Player = function(game, x, y) {
 
     this.eyes.x = x;
     this.eyes.y = y;
+
+    this.bulletTimer = 0;
 }
 
 Player.prototype = {
@@ -46,8 +48,6 @@ Player.prototype = {
     },
 
     fireBullets() {
-        if(fireKey.isDown) {
-            console.log("firing");
-        }
+        
     }
 }

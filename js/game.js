@@ -1,4 +1,7 @@
-Game = function(game) {};
+Game = function(game) {
+    this.bulletTimer = 0;
+};
+
 Game.prototype = {
     preload: function() {
         this.game.load.image("background", ASSET_ROOT + "/asset/img/background.png");
@@ -31,6 +34,7 @@ Game.prototype = {
     update: function() {
         this.updateBackground();
         player.update();
+        this.fireBullets();
     },
 
     updateBackground: function() {
@@ -39,6 +43,17 @@ Game.prototype = {
             if(this.backgrounds[i].body.y > SCREEN_HEIGHT) {
                 this.backgrounds[i].body.y -= SCREEN_HEIGHT * 2;
             }
+        }
+    },
+
+    fireBullets: function() {
+        if(this.bulletTimer > 0) {
+            this.bulletTimer -= this.game.time.physicsElapsedMS;
+        }
+
+        if(fireKey.isDown && this.bulletTimer <= 0) {
+            console.log("firing");
+            this.bulletTimer = PLAYER_BULLET_TIMER;
         }
     }
 }
