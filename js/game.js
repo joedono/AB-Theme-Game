@@ -2,6 +2,8 @@ Game = function(game) {};
 Game.prototype = {
     preload: function() {
         this.game.load.image("background", ASSET_ROOT + "/asset/img/background.png");
+        this.game.load.image("player", ASSET_ROOT + "/asset/img/player.png");
+        this.game.load.image("player-eye", ASSET_ROOT + "/asset/img/player-eye.png");
     },
 
     create: function() {
@@ -19,6 +21,8 @@ Game.prototype = {
             this.game.physics.enable(this.backgrounds[i], Phaser.Physics.ARCADE);
             this.backgrounds[i].body.velocity.y = BACKGROUND_SPEED;
         }
+
+        this.player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
     },
 
     update: function() {
