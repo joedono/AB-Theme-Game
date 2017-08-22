@@ -1,2 +1,6 @@
 var SCREEN_HEIGHT = 700;
 var SCREEN_WIDTH = 500;
+
+var BACKGROUND_SPEED = 100;
+
+var ASSET_ROOT = "";
