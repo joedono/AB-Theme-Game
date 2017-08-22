@@ -29,7 +29,7 @@ Game.prototype = {
         // If the background has passed out of the screen, move it back to the top
         for(var i in this.backgrounds) {
             if(this.backgrounds[i].body.y > SCREEN_HEIGHT) {
-                this.backgrounds[i].body.y = -SCREEN_HEIGHT;
+                this.backgrounds[i].body.y -= SCREEN_HEIGHT * 2;
             }
         }
     }
