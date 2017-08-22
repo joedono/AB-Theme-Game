@@ -12,6 +12,8 @@ Game.prototype = {
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
+        cursors = this.game.input.keyboard.createCursorKeys();
+
         this.backgrounds = [
             this.game.add.sprite(0, 0, "background"),
             this.game.add.sprite(0, -SCREEN_HEIGHT, "background")
@@ -22,12 +24,12 @@ Game.prototype = {
             this.backgrounds[i].body.velocity.y = BACKGROUND_SPEED;
         }
 
-        this.player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
+        player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
     },
 
     update: function() {
         this.updateBackground();
-        this.player.update();
+        player.update();
     },
 
     updateBackground: function() {
