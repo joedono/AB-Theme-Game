@@ -7,6 +7,7 @@ Game.prototype = {
         this.game.load.image("background", ASSET_ROOT + "/asset/img/background.png");
         this.game.load.image("player", ASSET_ROOT + "/asset/img/player.png");
         this.game.load.image("player-eye", ASSET_ROOT + "/asset/img/player-eye.png");
+        this.game.load.image("bullet", ASSET_ROOT + "/asset/img/bullet.png");
     },
 
     create: function() {
@@ -29,12 +30,14 @@ Game.prototype = {
         }
 
         player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
+
+        bullets = this.game.add.group();
     },
 
     update: function() {
         this.updateBackground();
         player.update();
-        this.fireBullets();
+        this.updateBullets();
     },
 
     updateBackground: function() {
@@ -46,14 +49,17 @@ Game.prototype = {
         }
     },
 
-    fireBullets: function() {
+    updateBullets: function() {
         if(this.bulletTimer > 0) {
             this.bulletTimer -= this.game.time.physicsElapsedMS;
         }
 
         if(fireKey.isDown && this.bulletTimer <= 0) {
-            console.log("firing");
             this.bulletTimer = PLAYER_BULLET_TIMER;
+
+            var bullet = bullets.create(player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2, player.sprite.body.y, "bullet");
+            this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
+            bullet.body.velocity.y = -BULLET_SPEED;
         }
     }
 }
