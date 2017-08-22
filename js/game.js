@@ -13,6 +13,7 @@ Game.prototype = {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         cursors = this.game.input.keyboard.createCursorKeys();
+        fireKey = this.game.input.keyboard.addKey(Phaser.Keyboard.Z);
 
         this.backgrounds = [
             this.game.add.sprite(0, 0, "background"),

@@ -1,5 +1,6 @@
  var player;
  var cursors;
+ var fireKey;
 
 var SCREEN_HEIGHT = 700;
 var SCREEN_WIDTH = 500;
