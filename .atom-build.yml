@@ -1,0 +1,5 @@
+cmd: jekyll
+args:
+    - build
+    - -s {PROJECT_PATH}
+    - -d C:\Node\public\
