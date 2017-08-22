@@ -27,6 +27,7 @@ Game.prototype = {
 
     update: function() {
         this.updateBackground();
+        this.player.update();
     },
 
     updateBackground: function() {
