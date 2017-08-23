@@ -54,12 +54,27 @@ Game.prototype = {
             this.bulletTimer -= this.game.time.physicsElapsedMS;
         }
 
+        // Fire bullets
         if(fireKey.isDown && this.bulletTimer <= 0) {
             this.bulletTimer = PLAYER_BULLET_TIMER;
 
             var bullet = bullets.create(player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2, player.sprite.body.y, "bullet");
             this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
+            bullet.outOfCameraBoundsKill = true;
+            bullet.autoCull = true;
             bullet.body.velocity.y = -BULLET_SPEED;
+        }
+
+        // Remove bullets that have left the screen
+        var bulletCleanup = [];
+        bullets.forEachDead(function(bullet){
+            bulletCleanup.push(bullet);
+        });
+
+        var i = bulletCleanup.length - 1;
+        while(i > -1) {
+            bulletCleanup[i].destroy();
+            i--;
         }
     }
 }
