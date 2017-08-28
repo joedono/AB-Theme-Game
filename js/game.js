@@ -8,7 +8,7 @@ Game.prototype = {
         this.game.load.image("player", ASSET_ROOT + "/asset/img/player.png");
         this.game.load.image("player-eye", ASSET_ROOT + "/asset/img/player-eye.png");
         this.game.load.image("bullet", ASSET_ROOT + "/asset/img/bullet.png");
-        this.game.load.image("enemy", ASSET_ROOT + "/asset/img/enemy.png");
+        this.game.load.image("enemy_1", ASSET_ROOT + "/asset/img/enemy_1.png");
     },
 
     create: function() {
@@ -33,13 +33,14 @@ Game.prototype = {
         player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
         bullets = this.game.add.group();
         enemies = [];
-        enemies.push(new Enemy(this.game, 100, 100));
+        enemies.push(new Enemy(this.game, 100, 100, 1));
     },
 
     update: function() {
         this.updateBackground();
         player.update();
         this.updateBullets();
+        this.updateEnemies();
     },
 
     updateBackground: function() {
@@ -77,6 +78,18 @@ Game.prototype = {
         while(i > -1) {
             bulletCleanup[i].destroy();
             i--;
+        }
+    },
+
+    updateEnemies: function() {
+
+
+        // Destroy Enemies that are off screen
+        for(var i = enemies.length - 1; i >= 0; i--) {
+            if(enemies[i].sprite.body.y > SCREEN_HEIGHT) {
+                enemies[i].sprite.destroy();
+                enemies.splice(i, 1);
+            }
         }
     }
 }
