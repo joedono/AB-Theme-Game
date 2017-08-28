@@ -32,6 +32,8 @@ Game.prototype = {
 
         player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
         bullets = this.game.add.group();
+        enemies = [];
+        enemies.push(new Enemy(this.game, 100, 100));
     },
 
     update: function() {

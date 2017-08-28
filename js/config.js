@@ -2,6 +2,7 @@
  var cursors;
  var fireKey;
  var bullets;
+ var enemies;
 
 var SCREEN_HEIGHT = 700;
 var SCREEN_WIDTH = 500;
