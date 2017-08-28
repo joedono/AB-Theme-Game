@@ -8,6 +8,7 @@ Game.prototype = {
         this.game.load.image("player", ASSET_ROOT + "/asset/img/player.png");
         this.game.load.image("player-eye", ASSET_ROOT + "/asset/img/player-eye.png");
         this.game.load.image("bullet", ASSET_ROOT + "/asset/img/bullet.png");
+        this.game.load.image("enemy", ASSET_ROOT + "/asset/img/enemy.png");
     },
 
     create: function() {
