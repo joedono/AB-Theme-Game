@@ -19,7 +19,6 @@ Player.prototype = {
     update: function() {
         this.moveSelf();
         this.moveEyes();
-        this.fireBullets();
     },
 
     moveSelf: function() {
@@ -45,9 +44,5 @@ Player.prototype = {
     moveEyes: function() {
         this.eyes.x = this.sprite.body.x;
         this.eyes.y = this.sprite.body.y;
-    },
-
-    fireBullets() {
-        
     }
 }
