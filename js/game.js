@@ -31,7 +31,6 @@ Game.prototype = {
         }
 
         player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
-
         bullets = this.game.add.group();
     },
 
