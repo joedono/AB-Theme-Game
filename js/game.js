@@ -91,10 +91,6 @@ Game.prototype = {
             this.asteroidTimer = ASTEROID_TIMER;
         }
 
-        asteroids.forEachDead(function(asteroid){
-            asteroid.angle++;
-        });
-
         var asteroidCleanup = [];
         asteroids.forEachDead(function(asteroid){
             asteroidCleanup.push(asteroid);
@@ -115,6 +111,6 @@ Game.prototype = {
         asteroid.body.velocity.y = ASTEROID_SPEED;
 
         var scale = 1 + Math.random() * 5;
-        asteroid.scale = new PIXI.Point(scale, scale);
+        asteroid.scale = new Phaser.Point(scale, scale);
     }
 }
