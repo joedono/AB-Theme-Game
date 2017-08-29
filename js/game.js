@@ -41,7 +41,9 @@ Game.prototype = {
         player.update();
         this.updateBullets();
         this.updateAsteroids();
+
         this.game.physics.arcade.overlap(player.sprite, asteroids, this.playerAsteroidHit, null, this);
+        this.game.physics.arcade.overlap(bullets, asteroids, this.bulletAsteroidHit, null, this);
     },
 
     updateBackground: function() {
@@ -92,6 +94,16 @@ Game.prototype = {
             this.asteroidTimer = ASTEROID_TIMER;
         }
 
+        asteroids.forEach(function(asteroid) {
+            if(asteroid.alpha < 1) {
+                asteroid.alpha = asteroid.alpha + 0.1;
+            }
+
+            if(asteroid.alpha > 1) {
+                asteroid.alpha = 1;
+            }
+        });
+
         var asteroidCleanup = [];
         asteroids.forEachDead(function(asteroid){
             asteroidCleanup.push(asteroid);
@@ -105,11 +117,16 @@ Game.prototype = {
     },
 
     spawnAsteroid: function() {
-        var asteroid = asteroids.create(Math.random() * SCREEN_WIDTH, 0, "asteroid");
+        var x = Math.random() * (SCREEN_WIDTH - 60) + 30;
+        var asteroid = asteroids.create(x, 0, "asteroid");
         this.game.physics.enable(asteroid, Phaser.Physics.ARCADE);
+
         asteroid.outOfCameraBoundsKill = true;
         asteroid.autoCull = true;
+
         asteroid.body.velocity.y = ASTEROID_SPEED;
+
+        asteroid.setHealth(ASTEROID_HEALTH);
 
         asteroid.anchor.setTo(0.5, 0.5);
         asteroid.body.angularVelocity = Math.random() * 1000 - 500;
@@ -118,5 +135,11 @@ Game.prototype = {
     playerAsteroidHit: function(player, asteroid) {
         asteroid.kill();
         player.parentObj.hit();
+    },
+
+    bulletAsteroidHit: function(bullet, asteroid) {
+        asteroid.damage(ASTEROID_DAMAGE);
+        asteroid.alpha = 0.2;
+        bullet.kill();
     }
 }

@@ -57,7 +57,7 @@ Player.prototype = {
     },
 
     hit: function() {
-        this.sprite.damage(ASTEROID_DAMAGE);
+        this.sprite.damage(PLAYER_DAMAGE);
         this.blinkTimer = PLAYER_BLINK_TIMER;
     },
 
