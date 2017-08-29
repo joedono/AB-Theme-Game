@@ -16,7 +16,7 @@ Player = function(game, x, y) {
     this.eyes.y = y;
 
     this.bulletTimer = 0;
-    this.powerUpTimer = PLAYER_POWERUP_TIMER;
+    this.powerUpTimer = 0;
 }
 
 Player.prototype = {

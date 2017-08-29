@@ -11,6 +11,7 @@ Game.prototype = {
         this.game.load.image("player-eye", ASSET_ROOT + "/asset/img/player-eye.png");
         this.game.load.image("bullet", ASSET_ROOT + "/asset/img/bullet.png");
         this.game.load.image("asteroid", ASSET_ROOT + "/asset/img/asteroid.png");
+        this.game.load.image("powerup", ASSET_ROOT + "/asset/img/powerup.png");
     },
 
     create: function() {
@@ -178,7 +179,15 @@ Game.prototype = {
     },
 
     spawnPowerup: function() {
-        //TODO
+        var x = Math.random() * (SCREEN_WIDTH - 60) + 30;
+        var powerup = powerups.create(x, 0, "powerup");
+
+        this.game.physics.enable(powerup, Phaser.Physics.ARCADE);
+
+        powerup.outOfCameraBoundsKill = true;
+        powerup.autoCull = true;
+
+        powerup.body.velocity.y = POWERUP_SPEED;
     },
 
     playerAsteroidHit: function(player, asteroid) {
