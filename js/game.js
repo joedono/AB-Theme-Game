@@ -8,7 +8,7 @@ Game.prototype = {
         this.game.load.image("player", ASSET_ROOT + "/asset/img/player.png");
         this.game.load.image("player-eye", ASSET_ROOT + "/asset/img/player-eye.png");
         this.game.load.image("bullet", ASSET_ROOT + "/asset/img/bullet.png");
-        this.game.load.image("enemy_1", ASSET_ROOT + "/asset/img/enemy_1.png");
+        this.game.load.image("asteroid", ASSET_ROOT + "/asset/img/asteroid.png");
     },
 
     create: function() {
@@ -32,8 +32,7 @@ Game.prototype = {
 
         player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
         bullets = this.game.add.group();
-        enemies = [];
-        enemies.push(new Enemy(this.game, 100, 100, 1));
+        asteroids = this.game.add.group();
     },
 
     update: function() {
