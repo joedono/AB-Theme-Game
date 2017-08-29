@@ -41,6 +41,7 @@ Game.prototype = {
         player.update();
         this.updateBullets();
         this.updateAsteroids();
+        this.game.physics.arcade.overlap(player.sprite, asteroids, this.playerAsteroidHit, null, this);
     },
 
     updateBackground: function() {
@@ -112,5 +113,10 @@ Game.prototype = {
 
         var scale = 1 + Math.random() * 5;
         asteroid.scale = new Phaser.Point(scale, scale);
+    },
+
+    playerAsteroidHit: function(player, asteroid) {
+        asteroid.kill();
+        player.parentObj.hit();
     }
 }

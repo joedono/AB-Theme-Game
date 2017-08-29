@@ -2,8 +2,11 @@ Player = function(game, x, y) {
     this.game = game;
 
     this.sprite = game.add.sprite(x, y, "player");
+    this.sprite.parentObj = this;
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
     this.sprite.body.collideWorldBounds = true;
+    this.sprite.setHealth(PLAYER_HEALTH);
+    this.sprite.events.onKilled.add(this.onKilled, this);
 
     this.eyes = game.add.group();
     this.eyes.create(22, 8, "player-eye");
@@ -44,5 +47,21 @@ Player.prototype = {
     moveEyes: function() {
         this.eyes.x = this.sprite.body.x;
         this.eyes.y = this.sprite.body.y;
+
+        if(this.blinkTimer > 0) {
+            this.blinkTimer -= this.game.time.physicsElapsedMS;
+            this.eyes.visible = false;
+        } else {
+            this.eyes.visible = true;
+        }
+    },
+
+    hit: function() {
+        this.sprite.damage(ASTEROID_DAMAGE);
+        this.blinkTimer = PLAYER_BLINK_TIMER;
+    },
+
+    onKilled: function() {
+        this.eyes.destroy();
     }
 }
