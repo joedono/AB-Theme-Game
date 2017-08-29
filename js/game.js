@@ -1,5 +1,6 @@
 Game = function(game) {
     this.bulletTimer = 0;
+    this.asteroidTimer = 0;
 };
 
 Game.prototype = {
@@ -39,7 +40,7 @@ Game.prototype = {
         this.updateBackground();
         player.update();
         this.updateBullets();
-        this.updateEnemies();
+        this.updateAsteroids();
     },
 
     updateBackground: function() {
@@ -80,15 +81,40 @@ Game.prototype = {
         }
     },
 
-    updateEnemies: function() {
-
-
-        // Destroy Enemies that are off screen
-        for(var i = enemies.length - 1; i >= 0; i--) {
-            if(enemies[i].sprite.body.y > SCREEN_HEIGHT) {
-                enemies[i].sprite.destroy();
-                enemies.splice(i, 1);
-            }
+    updateAsteroids: function() {
+        if(this.asteroidTimer > 0) {
+            this.asteroidTimer -= this.game.time.physicsElapsedMS;
         }
+
+        if(this.asteroidTimer <= 0) {
+            this.spawnAsteroid();
+            this.asteroidTimer = ASTEROID_TIMER;
+        }
+
+        asteroids.forEachDead(function(asteroid){
+            asteroid.angle++;
+        });
+
+        var asteroidCleanup = [];
+        asteroids.forEachDead(function(asteroid){
+            asteroidCleanup.push(asteroid);
+        });
+
+        var i = asteroidCleanup.length - 1;
+        while(i > -1) {
+            asteroidCleanup[i].destroy();
+            i--;
+        }
+    },
+
+    spawnAsteroid: function() {
+        var asteroid = asteroids.create(Math.random() * SCREEN_WIDTH, 0, "asteroid");
+        this.game.physics.enable(asteroid, Phaser.Physics.ARCADE);
+        asteroid.outOfCameraBoundsKill = true;
+        asteroid.autoCull = true;
+        asteroid.body.velocity.y = ASTEROID_SPEED;
+
+        var scale = 1 + Math.random() * 5;
+        asteroid.scale = new PIXI.Point(scale, scale);
     }
 }
