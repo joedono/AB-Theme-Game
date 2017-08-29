@@ -1,6 +1,8 @@
 Game = function(game) {
     this.bulletTimer = 0;
     this.asteroidTimer = 0;
+    this.score = 0;
+    this.difficulty = 0;
     this.powerupSpawnTimer = Math.random() * POWERUP_SPAWN_RANGE + POWERUP_SPAWN_MIN;
 };
 
@@ -37,6 +39,7 @@ Game.prototype = {
         bullets = this.game.add.group();
         asteroids = this.game.add.group();
         powerups = this.game.add.group();
+        scoreText = this.game.add.text(16, 16, "Score: 0", { fontSize: '16px', fill: '#FFF' });
     },
 
     update: function() {
@@ -45,6 +48,7 @@ Game.prototype = {
         this.updateBullets();
         this.updateAsteroids();
         this.updatePowerups();
+        this.updateScore();
 
         this.game.physics.arcade.overlap(player.sprite, asteroids, this.playerAsteroidHit, null, this);
         this.game.physics.arcade.overlap(bullets, asteroids, this.bulletAsteroidHit, null, this);
@@ -115,7 +119,7 @@ Game.prototype = {
 
         if(this.asteroidTimer <= 0) {
             this.spawnAsteroid();
-            this.asteroidTimer = ASTEROID_TIMER;
+            this.asteroidTimer = ASTEROID_TIMER[this.difficulty];
         }
 
         asteroids.forEach(function(asteroid) {
@@ -162,6 +166,13 @@ Game.prototype = {
         }
     },
 
+    updateScore: function() {
+        scoreText.text = "Score: " + Math.floor(this.score);
+        if(this.difficulty < ASTEROID_SPEED.length - 1) {
+            this.difficulty = Math.floor(this.score / DIFFICULTY_PROGRESSION);
+        }
+    },
+
     spawnAsteroid: function() {
         var x = Math.random() * (SCREEN_WIDTH - 60) + 30;
         var asteroid = asteroids.create(x, 0, "asteroid");
@@ -170,7 +181,7 @@ Game.prototype = {
         asteroid.outOfCameraBoundsKill = true;
         asteroid.autoCull = true;
 
-        asteroid.body.velocity.y = ASTEROID_SPEED;
+        asteroid.body.velocity.y = ASTEROID_SPEED[this.difficulty];
 
         asteroid.setHealth(ASTEROID_HEALTH);
 
@@ -199,10 +210,14 @@ Game.prototype = {
         bullet.kill();
         asteroid.damage(ASTEROID_DAMAGE);
         asteroid.alpha = 0.2;
+
+        this.score += 10;
     },
 
     playerPowerUpHit: function(player, powerUp) {
         player.parentObj.powerUpTimer = PLAYER_POWERUP_TIMER;
         powerUp.kill();
+
+        this.score += 100;
     }
 }
