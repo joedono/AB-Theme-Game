@@ -111,8 +111,8 @@ Game.prototype = {
         asteroid.autoCull = true;
         asteroid.body.velocity.y = ASTEROID_SPEED;
 
-        var scale = 1 + Math.random() * 5;
-        asteroid.scale = new Phaser.Point(scale, scale);
+        asteroid.anchor.setTo(0.5, 0.5);
+        asteroid.body.angularVelocity = Math.random() * 1000 - 500;
     },
 
     playerAsteroidHit: function(player, asteroid) {
