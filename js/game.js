@@ -1,6 +1,7 @@
 Game = function(game) {
     this.bulletTimer = 0;
     this.asteroidTimer = 0;
+    this.powerupSpawnTimer = Math.random() * POWERUP_SPAWN_RANGE + POWERUP_SPAWN_MIN;
 };
 
 Game.prototype = {
@@ -34,6 +35,7 @@ Game.prototype = {
         player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
         bullets = this.game.add.group();
         asteroids = this.game.add.group();
+        powerups = this.game.add.group();
     },
 
     update: function() {
@@ -41,9 +43,11 @@ Game.prototype = {
         player.update();
         this.updateBullets();
         this.updateAsteroids();
+        this.updatePowerups();
 
         this.game.physics.arcade.overlap(player.sprite, asteroids, this.playerAsteroidHit, null, this);
         this.game.physics.arcade.overlap(bullets, asteroids, this.bulletAsteroidHit, null, this);
+        this.game.physics.arcade.overlap(player.sprite, powerups, this.playerPowerUpHit, null, this);
     },
 
     updateBackground: function() {
@@ -135,6 +139,28 @@ Game.prototype = {
         }
     },
 
+    updatePowerups: function() {
+        if(this.powerupSpawnTimer > 0) {
+            this.powerupSpawnTimer -= this.game.time.physicsElapsedMS;
+        }
+
+        if(this.powerupSpawnTimer <= 0) {
+            this.spawnPowerup();
+            this.powerupSpawnTimer = Math.random() * POWERUP_SPAWN_RANGE + POWERUP_SPAWN_MIN;
+        }
+
+        var powerupCleanup = [];
+        powerups.forEachDead(function(powerup){
+            powerupCleanup.push(powerup);
+        });
+
+        var i = powerupCleanup.length - 1;
+        while(i > -1) {
+            powerupCleanup[i].destroy();
+            i--;
+        }
+    },
+
     spawnAsteroid: function() {
         var x = Math.random() * (SCREEN_WIDTH - 60) + 30;
         var asteroid = asteroids.create(x, 0, "asteroid");
@@ -151,19 +177,23 @@ Game.prototype = {
         asteroid.body.angularVelocity = Math.random() * 1000 - 500;
     },
 
+    spawnPowerup: function() {
+        //TODO
+    },
+
     playerAsteroidHit: function(player, asteroid) {
-        asteroid.kill();
         player.parentObj.hit();
+        asteroid.kill();
     },
 
     bulletAsteroidHit: function(bullet, asteroid) {
+        bullet.kill();
         asteroid.damage(ASTEROID_DAMAGE);
         asteroid.alpha = 0.2;
-        bullet.kill();
     },
 
     playerPowerUpHit: function(player, powerUp) {
-        player.powerUpTimer = PLAYER_POWERUP_TIMER;
+        player.parentObj.powerUpTimer = PLAYER_POWERUP_TIMER;
         powerUp.kill();
     }
 }
