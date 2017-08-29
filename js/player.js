@@ -16,12 +16,17 @@ Player = function(game, x, y) {
     this.eyes.y = y;
 
     this.bulletTimer = 0;
+    this.powerUpTimer = PLAYER_POWERUP_TIMER;
 }
 
 Player.prototype = {
     update: function() {
         this.moveSelf();
         this.moveEyes();
+
+        if(this.powerUpTimer > 0) {
+            this.powerUpTimer -= this.game.time.physicsElapsedMS;
+        }
     },
 
     moveSelf: function() {

@@ -64,11 +64,30 @@ Game.prototype = {
         if(fireKey.isDown && this.bulletTimer <= 0) {
             this.bulletTimer = PLAYER_BULLET_TIMER;
 
+            // Straight
             var bullet = bullets.create(player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2, player.sprite.body.y, "bullet");
             this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
             bullet.outOfCameraBoundsKill = true;
             bullet.autoCull = true;
             bullet.body.velocity.y = -BULLET_SPEED;
+
+            if(player.powerUpTimer > 0) {
+                // left
+                var bullet = bullets.create(player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2, player.sprite.body.y, "bullet");
+                this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
+                bullet.outOfCameraBoundsKill = true;
+                bullet.autoCull = true;
+                bullet.body.velocity.y = -BULLET_SPEED;
+                bullet.body.velocity.x = -BULLET_SPREAD;
+
+                // Right
+                var bullet = bullets.create(player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2, player.sprite.body.y, "bullet");
+                this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
+                bullet.outOfCameraBoundsKill = true;
+                bullet.autoCull = true;
+                bullet.body.velocity.y = -BULLET_SPEED;
+                bullet.body.velocity.x = BULLET_SPREAD;
+            }
         }
 
         // Remove bullets that have left the screen
@@ -141,5 +160,10 @@ Game.prototype = {
         asteroid.damage(ASTEROID_DAMAGE);
         asteroid.alpha = 0.2;
         bullet.kill();
+    },
+
+    playerPowerUpHit: function(player, powerUp) {
+        player.powerUpTimer = PLAYER_POWERUP_TIMER;
+        powerUp.kill();
     }
 }
