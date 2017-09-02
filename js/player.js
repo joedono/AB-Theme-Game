@@ -5,6 +5,7 @@ Player = function(game, x, y) {
     this.sprite.parentObj = this;
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
     this.sprite.body.collideWorldBounds = true;
+    this.sprite.maxHealth = 4;
     this.sprite.setHealth(PLAYER_HEALTH);
     this.sprite.events.onKilled.add(this.onKilled, this);
 
@@ -16,17 +17,12 @@ Player = function(game, x, y) {
     this.eyes.y = y;
 
     this.bulletTimer = 0;
-    this.powerUpTimer = 0;
 }
 
 Player.prototype = {
     update: function() {
         this.moveSelf();
         this.moveEyes();
-
-        if(this.powerUpTimer > 0) {
-            this.powerUpTimer -= this.game.time.physicsElapsedMS;
-        }
     },
 
     moveSelf: function() {

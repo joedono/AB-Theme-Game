@@ -80,22 +80,17 @@ Game.prototype = {
             bullet.autoCull = true;
             bullet.body.velocity.y = -BULLET_SPEED;
 
-            if(player.powerUpTimer > 0) {
-                // left
-                var bullet = bullets.create(player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2, player.sprite.body.y, "bullet");
-                this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
-                bullet.outOfCameraBoundsKill = true;
-                bullet.autoCull = true;
-                bullet.body.velocity.y = -BULLET_SPEED;
-                bullet.body.velocity.x = -BULLET_SPREAD;
-
-                // Right
-                var bullet = bullets.create(player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2, player.sprite.body.y, "bullet");
-                this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
-                bullet.outOfCameraBoundsKill = true;
-                bullet.autoCull = true;
-                bullet.body.velocity.y = -BULLET_SPEED;
-                bullet.body.velocity.x = BULLET_SPREAD;
+            switch(player.sprite.health) {
+                case 4:
+                    this.spawnBullet(-BULLET_SPREAD * 3);
+                    this.spawnBullet(BULLET_SPREAD * 3);
+                case 3:
+                    this.spawnBullet(-BULLET_SPREAD * 2);
+                    this.spawnBullet(BULLET_SPREAD * 2);
+                case 2:
+                    this.spawnBullet(-BULLET_SPREAD);
+                    this.spawnBullet(BULLET_SPREAD);
+                    break;
             }
         }
 
@@ -110,6 +105,15 @@ Game.prototype = {
             bulletCleanup[i].destroy();
             i--;
         }
+    },
+
+    spawnBullet: function(spread) {
+        var bullet = bullets.create(player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2, player.sprite.body.y, "bullet");
+        this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
+        bullet.outOfCameraBoundsKill = true;
+        bullet.autoCull = true;
+        bullet.body.velocity.y = -BULLET_SPEED;
+        bullet.body.velocity.x = spread;
     },
 
     updateAsteroids: function() {
@@ -215,9 +219,8 @@ Game.prototype = {
     },
 
     playerPowerUpHit: function(player, powerUp) {
-        player.parentObj.powerUpTimer = PLAYER_POWERUP_TIMER;
+        player.heal(1);
         powerUp.kill();
-
         this.score += 100;
     }
 }
