@@ -40,6 +40,7 @@ Game.prototype = {
         asteroids = this.game.add.group();
         powerups = this.game.add.group();
         scoreText = this.game.add.text(16, 16, "Score: 0", { fontSize: '16px', fill: '#FFF' });
+        healthText = this.game.add.text(16, 32, "Health: 1", { fontSize: '16px', fill: '#FFF' });
     },
 
     update: function() {
@@ -208,6 +209,7 @@ Game.prototype = {
     playerAsteroidHit: function(player, asteroid) {
         player.parentObj.hit();
         asteroid.kill();
+        this.updateHealth();
     },
 
     bulletAsteroidHit: function(bullet, asteroid) {
@@ -222,5 +224,10 @@ Game.prototype = {
         player.heal(1);
         powerUp.kill();
         this.score += 100;
+        this.updateHealth();
+    },
+
+    updateHealth: function() {
+        healthText.text = "Health: " + Math.floor(player.sprite.health);
     }
 }
