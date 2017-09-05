@@ -1,11 +1,25 @@
----
-layout: null
----
 <!DOCTYPE html>
 <html>
 <head>
-	{% include head.html %}
-	{% include scripts.html %}
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<title>AB Theme</title>
+
+	<style type="text/css">
+		canvas {
+			margin: auto;
+		}
+	</style>
+
+	<script type="text/javascript" src="/js/vendor/phaser.min.js"></script>
+	<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/phaser-ce@2.8.4"></script> -->
+
+	<script type="text/javascript" src="/js/config.js"></script>
+	<script type="text/javascript" src="/js/player.js"></script>
+	<script type="text/javascript" src="/js/game.js"></script>
+	<script type="text/javascript" src="/js/startup.js"></script>
 </head>
 <body>
 	<div id="game"></div>
