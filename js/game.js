@@ -265,11 +265,11 @@ Game.prototype = {
     },
 
     updateHealth: function() {
-        for(var i = 1; i <= PLAYER_MAX_HEALTH; i++) {
-            if(i <= player.sprite.health) {
-                healthDisplay[i-1].loadTexture("health-on");
+        for(var i = 0; i < PLAYER_MAX_HEALTH; i++) {
+            if(i < player.sprite.health) {
+                healthDisplay[i].loadTexture("health-on");
             } else {
-                healthDisplay[i-1].loadTexture("health-off");
+                healthDisplay[i].loadTexture("health-off");
             }
         }
     }
