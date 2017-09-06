@@ -9,14 +9,14 @@ Game = function(game) {
 
 Game.prototype = {
     preload: function() {
-        this.game.load.image("background", ASSET_ROOT + "/asset/img/background.png");
-        this.game.load.image("player", ASSET_ROOT + "/asset/img/player.png");
-        this.game.load.image("player-eye", ASSET_ROOT + "/asset/img/player-eye.png");
-        this.game.load.image("bullet", ASSET_ROOT + "/asset/img/bullet.png");
-        this.game.load.image("asteroid", ASSET_ROOT + "/asset/img/asteroid.png");
-        this.game.load.image("powerup", ASSET_ROOT + "/asset/img/powerup.png");
-        this.game.load.image("health-off", ASSET_ROOT + "/asset/img/healthbar-off.png");
-        this.game.load.image("health-on", ASSET_ROOT + "/asset/img/healthbar-on.png");
+        this.game.load.image("background", ASSET_ROOT + "background.png");
+        this.game.load.image("player", ASSET_ROOT + "player.png");
+        this.game.load.image("player-eye", ASSET_ROOT + "player-eye.png");
+        this.game.load.image("bullet", ASSET_ROOT + "bullet.png");
+        this.game.load.image("asteroid", ASSET_ROOT + "asteroid.png");
+        this.game.load.image("powerup", ASSET_ROOT + "powerup.png");
+        this.game.load.image("health-off", ASSET_ROOT + "healthbar-off.png");
+        this.game.load.image("health-on", ASSET_ROOT + "healthbar-on.png");
     },
 
     create: function() {
@@ -70,7 +70,7 @@ Game.prototype = {
         // If the background has passed out of the screen, move it back to the top
         for(var i in this.backgrounds) {
             this.backgrounds[i].body.velocity.y = BACKGROUND_SPEED * (this.difficulty + 1);
-            
+
             if(this.backgrounds[i].body.y > SCREEN_HEIGHT) {
                 this.backgrounds[i].body.y -= SCREEN_HEIGHT * 2;
             }
