@@ -17,7 +17,7 @@ Player = function(game, x, y) {
     this.eyes.y = y;
 
     this.bulletTimer = 0;
-}
+};
 
 Player.prototype = {
     update: function() {
@@ -65,4 +65,4 @@ Player.prototype = {
     onKilled: function() {
         this.eyes.destroy();
     }
-}
+};
