@@ -1,6 +1,7 @@
 Game = function(game) {
     this.bulletTimer = 0;
     this.asteroidTimer = 0;
+    this.asteroidCounter = 0;
     this.score = 0;
     this.difficulty = 0;
     this.powerupSpawnTimer = Math.random() * POWERUP_SPAWN_RANGE + POWERUP_SPAWN_MIN;
@@ -186,12 +187,28 @@ Game.prototype = {
         asteroid.outOfCameraBoundsKill = true;
         asteroid.autoCull = true;
 
-        asteroid.body.velocity.y = ASTEROID_SPEED[this.difficulty];
+        // Aim every 5th asteroid directly at the player
+        if(this.asteroidCounter % 5 == 0) {
+            var sx = asteroid.body.x + asteroid.body.width / 2;
+            var sy = asteroid.body.y + asteroid.body.width / 2;
+            var dx = player.sprite.body.x + player.sprite.body.width / 2;
+            var dy = player.sprite.body.y + player.sprite.body.height / 2;
+
+            var vec = new Phaser.Point(dx - sx, dy - sy);
+            vec = vec.normalize().multiply(ASTEROID_SPEED[this.difficulty], ASTEROID_SPEED[this.difficulty]);
+            asteroid.body.velocity.x = vec.x;
+            asteroid.body.velocity.y = vec.y;
+        } else {
+            asteroid.body.velocity.x = (Math.random() * ASTEROID_SPREAD * 2) - ASTEROID_SPREAD;
+            asteroid.body.velocity.y = ASTEROID_SPEED[this.difficulty];
+        }
 
         asteroid.setHealth(ASTEROID_HEALTH);
 
         asteroid.anchor.setTo(0.5, 0.5);
         asteroid.body.angularVelocity = Math.random() * 1000 - 500;
+
+        this.asteroidCounter++;
     },
 
     spawnPowerup: function() {
