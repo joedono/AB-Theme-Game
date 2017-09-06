@@ -1,12 +1,12 @@
- var player;
- var cursors;
- var fireKey;
- var bullets;
- var asteroids;
- var powerups;
- var scoreText;
- var healthText;
- var difficultyText;
+var player;
+var cursors;
+var fireKey;
+var bullets;
+var asteroids;
+var powerups;
+var scoreText;
+var difficultyText;
+var healthDisplay;
 
 var SCREEN_HEIGHT = 700;
 var SCREEN_WIDTH = 500;
@@ -21,6 +21,7 @@ var PLAYER_START_Y = 600;
 var PLAYER_SPEED = 200;
 var PLAYER_BULLET_TIMER = 100;
 var PLAYER_HEALTH = 1;
+var PLAYER_MAX_HEALTH = 4;
 var PLAYER_DAMAGE = 1;
 var PLAYER_BLINK_TIMER = 500;
 

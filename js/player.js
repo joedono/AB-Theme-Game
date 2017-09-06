@@ -5,7 +5,7 @@ Player = function(game, x, y) {
     this.sprite.parentObj = this;
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
     this.sprite.body.collideWorldBounds = true;
-    this.sprite.maxHealth = 4;
+    this.sprite.maxHealth = PLAYER_MAX_HEALTH;
     this.sprite.setHealth(PLAYER_HEALTH);
     this.sprite.events.onKilled.add(this.onKilled, this);
 

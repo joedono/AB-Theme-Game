@@ -15,6 +15,8 @@ Game.prototype = {
         this.game.load.image("bullet", ASSET_ROOT + "/asset/img/bullet.png");
         this.game.load.image("asteroid", ASSET_ROOT + "/asset/img/asteroid.png");
         this.game.load.image("powerup", ASSET_ROOT + "/asset/img/powerup.png");
+        this.game.load.image("health-off", ASSET_ROOT + "/asset/img/healthbar-off.png");
+        this.game.load.image("health-on", ASSET_ROOT + "/asset/img/healthbar-on.png");
     },
 
     create: function() {
@@ -41,8 +43,14 @@ Game.prototype = {
         asteroids = this.game.add.group();
         powerups = this.game.add.group();
         scoreText = this.game.add.text(16, 16, "Score: 0", { fontSize: '16px', fill: '#FFF' });
-        healthText = this.game.add.text(16, 32, "Health: 1", { fontSize: '16px', fill: '#FFF' });
-        difficultyText = this.game.add.text(16, 48, "Difficulty: 1", { fontSize: '16px', fill: '#FFF' });
+        difficultyText = this.game.add.text(16, 32, "Difficulty: 1", { fontSize: '16px', fill: '#FFF' });
+        healthDisplay = [];
+        for(var i = 0; i < PLAYER_MAX_HEALTH; i++) {
+            var healthItem = this.game.add.sprite(180 + 80 * i, 16, "health-off");
+            healthDisplay.push(healthItem);
+        }
+
+        healthDisplay[0].loadTexture("health-on");
     },
 
     update: function() {
@@ -257,6 +265,12 @@ Game.prototype = {
     },
 
     updateHealth: function() {
-        healthText.text = "Health: " + Math.floor(player.sprite.health);
+        for(var i = 1; i <= PLAYER_MAX_HEALTH; i++) {
+            if(i <= player.sprite.health) {
+                healthDisplay[i-1].loadTexture("health-on");
+            } else {
+                healthDisplay[i-1].loadTexture("health-off");
+            }
+        }
     }
 }
