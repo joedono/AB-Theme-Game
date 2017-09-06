@@ -72,7 +72,7 @@ Game.prototype = {
         }
 
         // Fire bullets
-        if(fireKey.isDown && this.bulletTimer <= 0) {
+        if(fireKey.isDown && this.bulletTimer <= 0 && player.sprite.health > 0) {
             this.bulletTimer = PLAYER_BULLET_TIMER;
 
             // Straight
