@@ -42,6 +42,7 @@ Game.prototype = {
         powerups = this.game.add.group();
         scoreText = this.game.add.text(16, 16, "Score: 0", { fontSize: '16px', fill: '#FFF' });
         healthText = this.game.add.text(16, 32, "Health: 1", { fontSize: '16px', fill: '#FFF' });
+        difficultyText = this.game.add.text(16, 48, "Difficulty: 1", { fontSize: '16px', fill: '#FFF' });
     },
 
     update: function() {
@@ -177,6 +178,7 @@ Game.prototype = {
         if(this.difficulty < ASTEROID_SPEED.length - 1) {
             this.difficulty = Math.floor(this.score / DIFFICULTY_PROGRESSION);
         }
+        difficultyText.text = "Difficulty: " + (this.difficulty + 1);
     },
 
     spawnAsteroid: function() {
@@ -203,7 +205,17 @@ Game.prototype = {
             asteroid.body.velocity.y = ASTEROID_SPEED[this.difficulty];
         }
 
-        asteroid.setHealth(ASTEROID_HEALTH);
+        asteroid.setHealth(ASTEROID_HEALTH[0]);
+
+        if(this.difficulty >= 2 && this.asteroidCounter % 4 == 0) {
+            asteroid.setHealth(ASTEROID_HEALTH[1]);
+            asteroid.scale.setTo(2, 2);
+        }
+
+        if(this.difficulty >= 4 && this.asteroidCounter % 7 == 0) {
+            asteroid.setHealth(ASTEROID_HEALTH[2]);
+            asteroid.scale.setTo(3, 3);
+        }
 
         asteroid.anchor.setTo(0.5, 0.5);
         asteroid.body.angularVelocity = Math.random() * 1000 - 500;

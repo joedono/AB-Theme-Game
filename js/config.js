@@ -5,12 +5,14 @@
  var asteroids;
  var powerups;
  var scoreText;
+ var healthText;
+ var difficultyText;
 
 var SCREEN_HEIGHT = 700;
 var SCREEN_WIDTH = 500;
 
 var BACKGROUND_SPEED = 50;
-var DIFFICULTY_PROGRESSION = 10000;
+var DIFFICULTY_PROGRESSION = 2000;
 
 var ASSET_ROOT = "";
 
@@ -27,8 +29,8 @@ var BULLET_SIZE = 8;
 var BULLET_SPREAD = 120;
 
 var ASTEROID_SPEED = [100, 200, 300, 400, 500];
-var ASTEROID_TIMER = [1500, 1000, 500, 100, 50];
-var ASTEROID_HEALTH = 10;
+var ASTEROID_TIMER = [1000, 700, 500, 300, 200];
+var ASTEROID_HEALTH = [10, 15, 20];
 var ASTEROID_DAMAGE = 1;
 var ASTEROID_SPREAD = 60;
 
