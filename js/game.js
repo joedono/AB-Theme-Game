@@ -35,7 +35,7 @@ Game.prototype = {
 
         for(var i in this.backgrounds) {
             this.game.physics.enable(this.backgrounds[i], Phaser.Physics.ARCADE);
-            this.backgrounds[i].body.velocity.y = BACKGROUND_SPEED;
+            this.backgrounds[i].body.velocity.y = BACKGROUND_SPEED * (this.difficulty + 1);
         }
 
         player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
@@ -69,6 +69,8 @@ Game.prototype = {
     updateBackground: function() {
         // If the background has passed out of the screen, move it back to the top
         for(var i in this.backgrounds) {
+            this.backgrounds[i].body.velocity.y = BACKGROUND_SPEED * (this.difficulty + 1);
+            
             if(this.backgrounds[i].body.y > SCREEN_HEIGHT) {
                 this.backgrounds[i].body.y -= SCREEN_HEIGHT * 2;
             }
