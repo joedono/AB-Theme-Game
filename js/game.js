@@ -38,10 +38,11 @@ Game.prototype = {
             this.backgrounds[i].body.velocity.y = BACKGROUND_SPEED * (this.difficulty + 1);
         }
 
-        player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
         bullets = this.game.add.group();
+        player = new Player(this.game, PLAYER_START_X, PLAYER_START_Y);
         asteroids = this.game.add.group();
         powerups = this.game.add.group();
+
         scoreText = this.game.add.text(16, 16, "Score: 0", { fontSize: '16px', fill: '#FFF' });
         difficultyText = this.game.add.text(16, 32, "Difficulty: 1", { fontSize: '16px', fill: '#FFF' });
         healthDisplay = [];
@@ -87,22 +88,19 @@ Game.prototype = {
             this.bulletTimer = PLAYER_BULLET_TIMER;
 
             // Straight
-            var bullet = bullets.create(player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2, player.sprite.body.y, "bullet");
-            this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
-            bullet.outOfCameraBoundsKill = true;
-            bullet.autoCull = true;
-            bullet.body.velocity.y = -BULLET_SPEED;
+            var bx = player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2;
+            this.spawnBullet(bx, 0);
 
             switch(player.sprite.health) {
                 case 4:
-                    this.spawnBullet(-BULLET_SPREAD * 3);
-                    this.spawnBullet(BULLET_SPREAD * 3);
+                    this.spawnBullet(bx - 30, -BULLET_SPREAD * 3);
+                    this.spawnBullet(bx + 30, BULLET_SPREAD * 3);
                 case 3:
-                    this.spawnBullet(-BULLET_SPREAD * 2);
-                    this.spawnBullet(BULLET_SPREAD * 2);
+                    this.spawnBullet(bx - 20, -BULLET_SPREAD * 2);
+                    this.spawnBullet(bx + 20, BULLET_SPREAD * 2);
                 case 2:
-                    this.spawnBullet(-BULLET_SPREAD);
-                    this.spawnBullet(BULLET_SPREAD);
+                    this.spawnBullet(bx - 10, -BULLET_SPREAD);
+                    this.spawnBullet(bx + 10, BULLET_SPREAD);
                     break;
             }
         }
@@ -120,8 +118,8 @@ Game.prototype = {
         }
     },
 
-    spawnBullet: function(spread) {
-        var bullet = bullets.create(player.sprite.body.x + player.sprite.body.width / 2 - BULLET_SIZE / 2, player.sprite.body.y, "bullet");
+    spawnBullet: function(x, spread) {
+        var bullet = bullets.create(x, player.sprite.body.y + player.sprite.body.height / 2, "bullet");
         this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
         bullet.outOfCameraBoundsKill = true;
         bullet.autoCull = true;
