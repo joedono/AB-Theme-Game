@@ -62,9 +62,9 @@
        height="400"
        width="421.05264"
        id="rect2987"
-       style="fill:#0000ff;fill-opacity:1" />
+       style="fill:#00ffff;fill-opacity:1" />
     <rect
-       style="fill:#ff8200;fill-opacity:1"
+       style="fill:#ff9955;fill-opacity:1"
        id="rect2985"
        width="750"
        height="258.82355"
@@ -81,8 +81,8 @@
            height="42.857143"
            x="-294.28571"
            y="540.93359" /></flowRegion><flowPara
-         id="flowPara3771"></flowPara></flowRoot>    <rect
-       style="fill:#0000ff;fill-opacity:1"
+         id="flowPara3771" /></flowRoot>    <rect
+       style="fill:#00ffff;fill-opacity:1"
        id="rect3789"
        width="232.02614"
        height="185.62091"
