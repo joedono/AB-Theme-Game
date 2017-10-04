@@ -14,7 +14,7 @@ var SCREEN_WIDTH = 500;
 var BACKGROUND_SPEED = 50;
 var DIFFICULTY_PROGRESSION = 2000;
 
-var ASSET_ROOT = "/asset/img/";
+var ASSET_ROOT = "asset/img/";
 
 var PLAYER_START_X = 200;
 var PLAYER_START_Y = 600;
