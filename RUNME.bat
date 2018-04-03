@@ -1,2 +1,3 @@
-node RUNSERVER.js "%CD%"
-pause
+call npm install
+echo Server Started
+call node RUNSERVER.js "%CD%"
