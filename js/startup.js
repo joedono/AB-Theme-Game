@@ -1,6 +1,19 @@
 (function() {
-    var game = new Phaser.Game(SCREEN_WIDTH, SCREEN_HEIGHT, Phaser.AUTO, "game");
+  var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    physics: {
+      default: 'arcade',
+      arcade: {
+        gravity: { y: 200 }
+      }
+    },
+    scene: {
+      preload: preload,
+      create: create
+    }
+  };
 
-    game.state.add("Game", Game);
-    game.state.start("Game");
+  var game = new Phaser.Game(config);
 })();
