@@ -20,13 +20,16 @@ var game = new Phaser.Game(config);
 
 var player;
 var platforms;
+var stars;
+
+var cursors;
 
 function preload() {
   this.load.image('sky', 'asset/sky.png');
   this.load.image('ground', 'asset/platform.png');
   this.load.image('star', 'asset/star.png');
   this.load.image('bomb', 'asset/bomb.png');
-  this.load.spritesheet('dude', 'asset/dude.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('dude', 'asset/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create() {
@@ -42,6 +45,9 @@ function create() {
   player = this.physics.add.sprite(100, 450, 'dude');
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
+  player.body.setGravityY(300);
+
+  this.physics.add.collider(player, platforms);
 
   this.anims.create({
     key: 'left',
@@ -62,8 +68,40 @@ function create() {
     frameRate: 10,
     repeat: -1
   });
+
+  cursors = this.input.keyboard.createCursorKeys();
+
+  stars = this.physics.add.group({
+    key: 'star',
+    repeat: 11,
+    setXY: { x: 12, y: 0, stepX: 70 }
+  });
+
+  stars.children.iterate(function(child) {
+    child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+  });
+
+  this.physics.add.collider(stars, platforms);
+  this.physics.add.overlap(player, stars, collectStar, null, this);
 }
 
 function update() {
+  if(cursors.left.isDown) {
+    player.setVelocityX(-160);
+    player.anims.play('left', true);
+  } else if(cursors.right.isDown) {
+    player.setVelocityX(160);
+    player.anims.play('right', true);
+  } else {
+    player.setVelocityX(0);
+    player.anims.play('turn');
+  }
 
+  if(cursors.up.isDown && player.body.touching.down) {
+    player.setVelocityY(-530);
+  }
+}
+
+function collectStar(player, star) {
+  star.disableBody(true, true);
 }
