@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="8" tileheight="8" nextobjectid="61">
+ <objectgroup color="#000000" name="Walls">
+  <object id="1" x="0" y="0" width="216" height="8"/>
+  <object id="4" x="264" y="0" width="216" height="8"/>
+  <object id="5" x="0" y="472" width="216" height="8"/>
+  <object id="6" x="264" y="472" width="216" height="8"/>
+  <object id="7" x="0" y="0" width="8" height="216"/>
+  <object id="8" x="0" y="264" width="8" height="216"/>
+  <object id="9" x="472" y="0" width="8" height="216"/>
+  <object id="10" x="472" y="264" width="8" height="216"/>
+  <object id="13" x="56" y="56" width="64" height="8"/>
+  <object id="14" x="56" y="56" width="8" height="64"/>
+  <object id="16" x="168" y="56" width="144" height="8"/>
+  <object id="17" x="360" y="56" width="64" height="8"/>
+  <object id="18" x="56" y="416" width="64" height="8"/>
+  <object id="19" x="360" y="416" width="64" height="8"/>
+  <object id="20" x="168" y="416" width="144" height="8"/>
+  <object id="21" x="56" y="360" width="8" height="64"/>
+  <object id="22" x="56" y="168" width="8" height="144"/>
+  <object id="23" x="416" y="360" width="8" height="64"/>
+  <object id="24" x="416" y="168" width="8" height="144"/>
+  <object id="25" x="416" y="56" width="8" height="64"/>
+  <object id="26" x="360" y="112" width="8" height="104"/>
+  <object id="28" x="112" y="112" width="104" height="8"/>
+  <object id="30" x="264" y="112" width="104" height="8"/>
+  <object id="32" x="360" y="264" width="8" height="104"/>
+  <object id="33" x="112" y="360" width="104" height="8"/>
+  <object id="34" x="264" y="360" width="104" height="8"/>
+  <object id="35" x="112" y="112" width="8" height="104"/>
+  <object id="36" x="112" y="264" width="8" height="104"/>
+  <object id="38" x="160" y="296" width="8" height="24"/>
+  <object id="39" x="160" y="160" width="24" height="8"/>
+  <object id="41" x="296" y="160" width="24" height="8"/>
+  <object id="42" x="216" y="160" width="48" height="8"/>
+  <object id="43" x="160" y="312" width="24" height="8"/>
+  <object id="44" x="216" y="312" width="48" height="8"/>
+  <object id="45" x="296" y="312" width="24" height="8"/>
+  <object id="46" x="160" y="160" width="8" height="24"/>
+  <object id="47" x="160" y="216" width="8" height="48"/>
+  <object id="48" x="312" y="296" width="8" height="24"/>
+  <object id="49" x="312" y="216" width="8" height="48"/>
+  <object id="50" x="312" y="160" width="8" height="24"/>
+  <object id="51" x="264" y="216" width="8" height="48"/>
+  <object id="52" x="208" y="216" width="8" height="48"/>
+  <object id="57" x="208" y="216" width="16" height="8"/>
+  <object id="58" x="208" y="256" width="16" height="8"/>
+  <object id="59" x="256" y="256" width="16" height="8"/>
+  <object id="60" x="256" y="216" width="16" height="8"/>
+ </objectgroup>
+</map>
