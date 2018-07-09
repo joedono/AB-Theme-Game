@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="8" tileheight="8" nextobjectid="61">
+ <tileset firstgid="1" source="floor.tsx"/>
+ <layer name="Floor" width="60" height="60">
+  <data encoding="base64" compression="zlib">
+   eJzt0bENwDAQA7F3kv1njmdwI0BmIVwvrpl59tYlffe+i5r+my9fvnz58uXb3/TffPny5cuXL9/+pv/my5cvX758+fY3/Tdfvnz58uXLt7/pv/ny5cuXL1++/U3/zZcvX758+fLtb/pvvnz5nvcH14ojKQ==
+  </data>
+ </layer>
  <objectgroup color="#000000" name="Walls">
   <object id="1" x="0" y="0" width="216" height="8"/>
   <object id="4" x="264" y="0" width="216" height="8"/>
