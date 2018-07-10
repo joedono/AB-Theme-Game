@@ -65,22 +65,10 @@ function movePlayer() {
   var px = 0;
   var py = 0;
 
-  if(cursors.left.isDown) {
-    px -= 1;
-  }
-
-  if(cursors.right.isDown) {
-    px += 1;
-  }
-
-  if(cursors.up.isDown) {
-    py -= 1;
-  }
-
-  if(cursors.down.isDown) {
-    py += 1;
-  }
-
+  if(cursors.left.isDown) px -= 1;
+  if(cursors.right.isDown) px += 1;
+  if(cursors.up.isDown) py -= 1;
+  if(cursors.down.isDown) py += 1;
 
   var pv = new Phaser.Math.Vector2(px, py);
   pv.normalize();
