@@ -1,2 +1,4 @@
 var SCREEN_WIDTH = 480;
 var SCREEN_HEIGHT = 480;
+
+var PLAYER_SPEED = 200;
