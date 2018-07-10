@@ -20,16 +20,22 @@ var game = new Phaser.Game(config);
 var map;
 var floorLayer;
 
+var player;
+
 function preload() {
   this.load.tilemapTiledJSON('map', 'asset/config/map.json');
-  this.load.spritesheet('tiles', 'asset/image/floor.png', { frameWidth: 8, frameHeight: 8 });
+  this.load.spritesheet('floor', 'asset/image/floor.png', { frameWidth: 8, frameHeight: 8 });
+
+  this.load.image('player', 'asset/image/player.png');
 }
 
 function create() {
   map = this.make.tilemap({ key: 'map' });
-  var floorTiles = map.addTilesetImage('tiles');
+  var floorTiles = map.addTilesetImage('Floor', 'floor');
 
-  floorLayer = map.createDynamicLayer('Floor', floorTiles, 0, 0);
+  floorLayer = map.createStaticLayer('Floor', floorTiles, 0, 0);
+
+  player = this.physics.add.sprite(200, 200, 'player');
 }
 
 function update() {
