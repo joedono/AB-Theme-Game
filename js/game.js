@@ -50,30 +50,12 @@ function create() {
 
   walls.refresh();
 
-  player = this.physics.add.sprite(250, 275, 'player');
-  player.setCollideWorldBounds(true);
+  player = new Player(this);
 
   cursors = this.input.keyboard.createCursorKeys();
-  this.physics.add.collider(player, walls);
+  this.physics.add.collider(player.sprite, walls);
 }
 
 function update() {
-  movePlayer();
-}
-
-function movePlayer() {
-  var px = 0;
-  var py = 0;
-
-  if(cursors.left.isDown) px -= 1;
-  if(cursors.right.isDown) px += 1;
-  if(cursors.up.isDown) py -= 1;
-  if(cursors.down.isDown) py += 1;
-
-  var pv = new Phaser.Math.Vector2(px, py);
-  pv.normalize();
-  pv.scale(PLAYER_SPEED);
-
-  player.body.setVelocityX(pv.x);
-  player.body.setVelocityY(pv.y);
+  player.update();
 }
