@@ -22,7 +22,7 @@ var floorLayer;
 var walls;
 
 var player;
-var enemyManager;
+var enemies;
 
 var cursors;
 
@@ -36,6 +36,8 @@ function preload() {
 }
 
 function create() {
+  cursors = this.input.keyboard.createCursorKeys();
+
   map = this.make.tilemap({ key: 'map' });
   var floorTiles = map.addTilesetImage('Floor', 'floor');
   floorLayer = map.createStaticLayer('Floor', floorTiles, 0, 0);
@@ -53,11 +55,12 @@ function create() {
   walls.refresh();
 
   player = new Player(this);
+  enemies = new Enemies(this);
 
-  cursors = this.input.keyboard.createCursorKeys();
   this.physics.add.collider(player.sprite, walls);
 }
 
 function update() {
   player.update();
+  enemies.update();
 }
