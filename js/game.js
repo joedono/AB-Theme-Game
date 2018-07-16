@@ -30,7 +30,7 @@ function preload() {
   this.load.spritesheet('floor', 'asset/image/floor.png', { frameWidth: 8, frameHeight: 8 });
   this.load.image('wall', 'asset/image/wall.png');
 
-  this.load.image('player', 'asset/image/player.png');
+  this.load.spritesheet('player', 'asset/image/player.png', { frameWidth: 16, frameHeight: 16 });
 }
 
 function create() {
