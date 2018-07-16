@@ -22,6 +22,7 @@ var floorLayer;
 var walls;
 
 var player;
+var enemyManager;
 
 var cursors;
 
@@ -31,6 +32,7 @@ function preload() {
   this.load.image('wall', 'asset/image/wall.png');
 
   this.load.spritesheet('player', 'asset/image/player.png', { frameWidth: 16, frameHeight: 16 });
+  this.load.spritesheet('enemy', 'asset/image/enemy.png', { frameWidth: 16, frameHeight: 16 });
 }
 
 function create() {
