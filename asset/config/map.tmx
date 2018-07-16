@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="8" tileheight="8" nextobjectid="68">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="8" tileheight="8" nextobjectid="78">
  <tileset firstgid="1" name="Floor" tilewidth="8" tileheight="8" tilecount="4" columns="2">
   <image source="../image/floor.png" trans="ffffff" width="16" height="16"/>
  </tileset>
- <layer name="Floor" width="60" height="60">
+ <layer name="Floor" width="60" height="60" visible="0">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -115,7 +115,7 @@
   <object id="59" name="Wall" x="256" y="256" width="8" height="8"/>
   <object id="60" name="Wall" x="256" y="216" width="8" height="8"/>
  </objectgroup>
- <objectgroup color="#aa0000" name="Paths" visible="0">
+ <objectgroup color="#aa0000" name="Paths Basic" visible="0">
   <object id="61" x="240" y="0">
    <polyline points="0,0 0,32 96,32 96,88 0,88 0,136 40,136 40,192 0,192 0,240"/>
   </object>
@@ -133,6 +133,38 @@
   </object>
   <object id="67" x="0" y="240">
    <polyline points="0,0 32,0 32,96 88,96 88,0 136,0 136,40 240,40 240,0"/>
+  </object>
+  <object id="68" x="480" y="240">
+   <polyline points="0,0 -32,0 -32,-96 -88,-96 -88,0 -136,0 -136,-40 -240,-40 -240,0"/>
+  </object>
+  <object id="69" x="480" y="240">
+   <polyline points="0,0 -32,0 -32,96 -88,96 -88,0 -136,0 -136,40 -240,40 -240,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00aa00" name="Paths Simple">
+  <object id="70" x="240" y="0">
+   <polyline points="0,0 0,32 -96,32 -96,88 -152,88 -152,240 -104,240 -104,200 0,200 0,240"/>
+  </object>
+  <object id="71" x="240" y="0">
+   <polyline points="0,0 0,32 96,32 96,88 152,88 152,240 104,240 104,200 0,200 0,240"/>
+  </object>
+  <object id="72" x="240" y="480">
+   <polyline points="0,0 0,-32 -96,-32 -96,-88 -152,-88 -152,-240 -104,-240 -104,-200 0,-200 0,-240"/>
+  </object>
+  <object id="73" x="240" y="480">
+   <polyline points="0,0 0,-32 96,-32 96,-88 152,-88 152,-240 104,-240 104,-200 0,-200 0,-240"/>
+  </object>
+  <object id="74" x="480" y="240">
+   <polyline points="0,0 -32,0 -32,-96 -88,-96 -88,-152 -240,-152 -240,-104 -200,-104 -200,-56 -240,-56 -240,0"/>
+  </object>
+  <object id="75" x="480" y="240">
+   <polyline points="0,0 -32,0 -32,96 -88,96 -88,152 -240,152 -240,104 -200,104 -200,40 -240,40 -240,0"/>
+  </object>
+  <object id="76" x="0" y="240">
+   <polyline points="0,0 32,0 32,-96 88,-96 88,-152 240,-152 240,-104 200,-104 200,-56 240,-56 240,0"/>
+  </object>
+  <object id="77" x="0" y="240">
+   <polyline points="0,0 32,0 32,96 88,96 88,152 240,152 240,104 200,104 200,40 240,40 240,0"/>
   </object>
  </objectgroup>
 </map>
