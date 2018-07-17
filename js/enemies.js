@@ -26,10 +26,47 @@ Enemies = function(game) {
   });
 
   this.ninjas = game.physics.add.group();
+
+  this.buildPaths();
 };
 
 Enemies.prototype = {
   update: function() {
 
+  },
+
+  buildPaths: function() {
+    var paths = new Array();
+
+    var pathSources = new Array();
+    pathSources.push(map.getObjectLayer('Paths Basic')['objects']);
+    pathSources.push(map.getObjectLayer('Paths Simple')['objects']);
+    pathSources.push(map.getObjectLayer('Paths Simple Longer')['objects']);
+    pathSources.push(map.getObjectLayer('Paths Medium Vertical')['objects']);
+    pathSources.push(map.getObjectLayer('Paths Medium Horizontal')['objects']);
+    pathSources.push(map.getObjectLayer('Paths Complex One')['objects']);
+    pathSources.push(map.getObjectLayer('Paths Complex Two')['objects']);
+    pathSources.push(map.getObjectLayer('Paths Complex Three')['objects']);
+
+    pathSources.forEach(function(pathSource) {
+      pathSource.forEach(function(line) {
+        var originX = line.x;
+        var originY = line.y;
+        var points = line.polyline;
+        var pathX = new Array();
+        var pathY = new Array();
+        points.forEach(function(point) {
+          pathX.push(originX + point.x);
+          pathY.push(originY + point.y);
+        });
+
+        paths.push({
+          'x': pathX,
+          'y': pathY
+        });
+      });
+    });
+
+    this.paths = paths;
   }
 };
