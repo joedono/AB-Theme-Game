@@ -23,6 +23,7 @@ var walls;
 
 var player;
 var enemies;
+var paths;
 
 var cursors;
 
@@ -43,6 +44,7 @@ function create() {
   floorLayer = map.createStaticLayer('Floor', floorTiles, 0, 0);
 
   buildWalls(this);
+  buildPaths(this);
 
   player = new Player(this);
   enemies = new Enemies(this);
@@ -62,6 +64,39 @@ function buildWalls(game) {
   });
 
   walls.refresh();
+}
+
+function buildPaths(game) {
+  paths = new Array();
+
+  var pathSources = new Array();
+  pathSources.push(map.getObjectLayer('Paths Basic')['objects']);
+  pathSources.push(map.getObjectLayer('Paths Simple')['objects']);
+  pathSources.push(map.getObjectLayer('Paths Simple Longer')['objects']);
+  pathSources.push(map.getObjectLayer('Paths Medium Vertical')['objects']);
+  pathSources.push(map.getObjectLayer('Paths Medium Horizontal')['objects']);
+  pathSources.push(map.getObjectLayer('Paths Complex One')['objects']);
+  pathSources.push(map.getObjectLayer('Paths Complex Two')['objects']);
+  pathSources.push(map.getObjectLayer('Paths Complex Three')['objects']);
+
+  pathSources.forEach(function(pathSource) {
+    pathSource.forEach(function(line) {
+      var originX = line.x;
+      var originY = line.y;
+      var points = line.polyline;
+      var pathX = new Array();
+      var pathY = new Array();
+      points.forEach(function(point) {
+        pathX.push(originX + point.x);
+        pathY.push(originY + point.y);
+      });
+
+      paths.push({
+        'x': pathX,
+        'y': pathY
+      });
+    });
+  });
 }
 
 function update() {
