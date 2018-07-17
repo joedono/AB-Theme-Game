@@ -42,8 +42,17 @@ function create() {
   var floorTiles = map.addTilesetImage('Floor', 'floor');
   floorLayer = map.createStaticLayer('Floor', floorTiles, 0, 0);
 
+  buildWalls(this);
+
+  player = new Player(this);
+  enemies = new Enemies(this);
+
+  this.physics.add.collider(player.sprite, walls);
+}
+
+function buildWalls(game) {
   var mapWalls = map.getObjectLayer('Walls')['objects'];
-  walls = this.physics.add.staticGroup();
+  walls = game.physics.add.staticGroup();
   mapWalls.forEach(function(mapWall) {
     var wall = walls.create(mapWall.x, mapWall.y, 'wall');
     wall.setScale(mapWall.width / 8, mapWall.height / 8);
@@ -53,11 +62,6 @@ function create() {
   });
 
   walls.refresh();
-
-  player = new Player(this);
-  enemies = new Enemies(this);
-
-  this.physics.add.collider(player.sprite, walls);
 }
 
 function update() {
