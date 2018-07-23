@@ -72,4 +72,14 @@ function update(time, delta) {
 
 function strikeEnemy(enemy, sword) {
 	enemy.setData('health', enemy.getData('health') - 1);
+
+	// TODO Stop enemy temporarily
+}
+
+function increaseScore() {
+	// TODO Increase Score
+}
+
+function loseGame() {
+	// TODO Lose Game
 }

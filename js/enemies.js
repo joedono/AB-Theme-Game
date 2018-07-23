@@ -133,6 +133,7 @@ Enemies.prototype = {
 				enemy.anims.play(facingAnim, true);
 			} else {
 				enemy.destroy();
+				loseGame();
 			}
 		});
 	},
@@ -140,6 +141,7 @@ Enemies.prototype = {
 	cleanupEnemies: function() {
 		this.enemies.children.iterate(function(enemy) {
 			if(enemy.getData('health') <= 0) {
+				increaseScore();
 				enemy.destroy();
 			}
 		});
