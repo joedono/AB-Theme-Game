@@ -32,6 +32,8 @@ Enemies = function(game) {
 	game.physics.add.collider(this.enemies, playerSword, strikeEnemy, null, game);
 
 	this.spawnTimer = ENEMY_SPAWN_TIMER;
+
+	this.spawnEnemy();
 };
 
 Enemies.prototype = {
@@ -86,11 +88,11 @@ Enemies.prototype = {
 	},
 
 	spawnEnemy: function() {
-		var path = this.paths[RANDOM];
+		var path = this.paths[Phaser.Math.RND.between(0, this.paths.length - 1)];
 		var startPointX = path.x[0];
 		var startPointY = path.y[0];
 
-		var enemy = this.enemies.add(startPointX, startPointY, 'enemy');
+		var enemy = this.enemies.create(startPointX, startPointY, 'enemy');
 		enemy.setData('health', ENEMY_HEALTH);
 		enemy.setData('path', path);
 		enemy.setData('timer', 0);
@@ -99,10 +101,27 @@ Enemies.prototype = {
 	updateEnemies: function(delta) {
 		this.enemies.children.iterate(function(enemy) {
 			var timer = enemy.getData('timer');
-			timer += delta;
-			var progress = timer / ENEMY_PATH_TIMER;
 
-			// TODO Move along path
+			if(timer < ENEMY_PATH_TIMER) {
+				var source = new Phaser.Geom.Point(enemy.x, enemy.y);
+				var path = enemy.getData('path');
+
+				timer += delta;
+				var distance = timer / ENEMY_PATH_TIMER;
+				var dest = new Phaser.Geom.Point(
+					Phaser.Math.Interpolation.Linear(path.x, distance),
+					Phaser.Math.Interpolation.Linear(path.y, distance)
+				);
+
+				var angle = Phaser.Math.Angle.BetweenPoints(source, dest);
+				// TODO Move along path
+
+				enemy.x = dest.x;
+				enemy.y = dest.y;
+				enemy.setData('timer', timer);
+			} else {
+				enemy.destroy();
+			}
 		});
 	},
 
