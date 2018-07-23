@@ -22,6 +22,7 @@ var floorLayer;
 var walls;
 
 var player;
+var playerSword;
 var enemies;
 
 var cursors;
@@ -64,7 +65,11 @@ function buildWalls(game) {
   walls.refresh();
 }
 
-function update() {
+function update(time, delta) {
   player.update();
-  enemies.update();
+  enemies.update(delta);
+}
+
+function strikeEnemy(enemy, sword) {
+  enemy.setData('health', enemy.getData('health') - 1);
 }

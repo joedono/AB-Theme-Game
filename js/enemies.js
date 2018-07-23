@@ -25,14 +25,21 @@ Enemies = function(game) {
     frameRate: 20
   });
 
-  this.ninjas = game.physics.add.group();
+  this.enemies = game.physics.add.group();
 
   this.buildPaths();
+  game.physics.add.collider(this.enemies, walls);
+  game.physics.add.collider(this.enemies, playerSword, strikeEnemy, null, game);
+
+  this.spawnTimer = ENEMY_SPAWN_TIMER;
 };
 
 Enemies.prototype = {
-  update: function() {
-
+  update: function(delta) {
+    delta = delta / 1000;
+    this.updateSpawnTimer(delta);
+    this.updateEnemies(delta);
+    this.cleanupEnemies();
   },
 
   buildPaths: function() {
@@ -68,5 +75,42 @@ Enemies.prototype = {
     });
 
     this.paths = paths;
+  },
+
+  updateSpawnTimer: function(delta) {
+    this.spawnTimer -= delta;
+    if(this.spawnTimer <= 0) {
+      this.spawnEnemy();
+      this.spawnTimer = ENEMY_SPAWN_TIMER;
+    }
+  },
+
+  spawnEnemy: function() {
+    var path = this.paths[RANDOM];
+    var startPointX = path.x[0];
+    var startPointY = path.y[0];
+
+    var enemy = this.enemies.add(startPointX, startPointY, 'enemy');
+    enemy.setData('health', ENEMY_HEALTH);
+    enemy.setData('path', path);
+    enemy.setData('timer', 0);
+  },
+
+  updateEnemies: function(delta) {
+    this.enemies.children.iterate(function(enemy) {
+      var timer = enemy.getData('timer');
+      timer += delta;
+      var progress = timer / ENEMY_PATH_TIMER;
+
+      // TODO Move along path
+    });
+  },
+
+  cleanupEnemies: function() {
+    this.enemies.children.iterate(function(enemy) {
+      if(enemy.getData('health') <= 0) {
+        enemy.destroy();
+      }
+    });
   }
 };
