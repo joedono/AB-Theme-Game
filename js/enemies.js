@@ -114,11 +114,23 @@ Enemies.prototype = {
 				);
 
 				var angle = Phaser.Math.Angle.BetweenPoints(source, dest);
-				// TODO Move along path
+				if(angle < 0) {
+					angle += Phaser.Math.PI2;
+				}
+
+				var facingAnim = 'enemyUp';
+				if(angle < Math.PI * 1/4 || angle > Math.PI * 7/4) {
+					facingAnim = 'enemyRight';
+				} else if(angle < Math.PI * 3/4 && angle > Math.PI * 1/4) {
+					facingAnim = 'enemyDown';
+				} else if(angle < Math.PI * 5/4 && angle > Math.PI * 3/4) {
+					facingAnim = 'enemyLeft';
+				}
 
 				enemy.x = dest.x;
 				enemy.y = dest.y;
 				enemy.setData('timer', timer);
+				enemy.anims.play(facingAnim, true);
 			} else {
 				enemy.destroy();
 			}
