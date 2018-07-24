@@ -44,6 +44,7 @@ scenePlaying.create = function() {
 	enemies = new Enemies(this);
 
 	this.physics.add.collider(player.sprite, walls);
+	this.playing = true;
 }
 
 scenePlaying.buildWalls = function() {
@@ -67,12 +68,14 @@ scenePlaying.update = function(time, delta) {
 }
 
 scenePlaying.updateFamily = function() {
-	var animation = 'familyCalm';
-	if(enemies.closingIn(family.x, family.y, FAMILY_PANIC_DISTANCE)) {
-		animation = 'familyScared';
-	}
+	if(this.playing) {
+		var animation = 'familyCalm';
+		if(enemies.closingIn(family.x, family.y, FAMILY_PANIC_DISTANCE)) {
+			animation = 'familyScared';
+		}
 
-	family.anims.play(animation, true);
+		family.anims.play(animation, true);
+	}
 }
 
 scenePlaying.strikeEnemy = function(enemy, sword) {
@@ -86,8 +89,7 @@ scenePlaying.increaseScore = function() {
 }
 
 scenePlaying.loseGame = function() {
-	// TODO Lose Game
 	family.anims.play('familyDead', true);
-  this.scene.pause();
+  this.playing = false;
   this.scene.launch('GameOver');
 }
