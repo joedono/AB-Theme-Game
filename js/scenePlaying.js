@@ -1,16 +1,5 @@
 var scenePlaying = new Phaser.Scene('Playing');
 
-var map;
-var floorLayer;
-var walls;
-
-var player;
-var playerSword;
-var family;
-var enemies;
-
-var cursors;
-
 scenePlaying.preload = function() {
 	this.load.tilemapTiledJSON('map', 'asset/config/map.json');
 	this.load.spritesheet('floor', 'asset/image/floor.png', { frameWidth: 8, frameHeight: 8 });
@@ -23,6 +12,7 @@ scenePlaying.preload = function() {
 
 scenePlaying.create = function() {
 	cursors = this.input.keyboard.createCursorKeys();
+  score = 0;
 
 	this.anims.create({
 		key: 'familyCalm',
