@@ -27,11 +27,17 @@ Player = function(game) {
 		frames: [{ key: 'player', frame: 3 }],
 		frameRate: 20
 	});
+
+	this.swordSwingKey = game.input.keyboard.addKey(PLAYER_SWING_SWORD_KEY);
 };
 
 Player.prototype = {
 	update: function() {
 		this.move();
+
+		if(Phaser.Input.Keyboard.JustDown(this.swordSwingKey)) {
+			this.swingSword();
+		}
 	},
 
 	move: function() {
@@ -54,5 +60,9 @@ Player.prototype = {
 
 		this.sprite.body.setVelocityX(pv.x);
 		this.sprite.body.setVelocityY(pv.y);
+	},
+
+	swingSword: function() {
+		// TODO Swing Sword
 	}
 };
