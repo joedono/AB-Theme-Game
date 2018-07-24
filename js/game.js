@@ -53,6 +53,12 @@ function create() {
 		frameRate: 20
 	});
 
+	this.anims.create({
+		key: 'familyDead',
+		frames: [{ key: 'family', frame: 2 }],
+		frameRate: 20
+	});
+
 	map = this.make.tilemap({ key: 'map' });
 	var floorTiles = map.addTilesetImage('Floor', 'floor');
 	floorLayer = map.createStaticLayer('Floor', floorTiles, 0, 0);
@@ -108,4 +114,5 @@ function increaseScore() {
 
 function loseGame() {
 	// TODO Lose Game
+	family.anims.play('familyDead', true);
 }
