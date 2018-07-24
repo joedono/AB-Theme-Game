@@ -98,5 +98,6 @@ scenePlaying.increaseScore = function() {
 scenePlaying.loseGame = function() {
 	// TODO Lose Game
 	family.anims.play('familyDead', true);
-  this.scene.start('GameOver');
+  this.scene.pause();
+  this.scene.launch('GameOver');
 }
