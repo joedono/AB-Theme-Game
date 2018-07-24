@@ -29,7 +29,7 @@ Enemies = function(game) {
 
 	this.buildPaths();
 	game.physics.add.collider(this.enemies, walls);
-	game.physics.add.collider(this.enemies, playerSword, strikeEnemy, null, game);
+	game.physics.add.collider(this.enemies, playerSword, game.strikeEnemy, null, game);
 
 	this.spawnTimer = ENEMY_SPAWN_TIMER;
 
@@ -40,7 +40,7 @@ Enemies.prototype = {
 	update: function(delta) {
 		delta = delta / 1000;
 		this.updateSpawnTimer(delta);
-		this.updateEnemies(delta);
+		this.updateEnemies(this.game, delta);
 		this.cleanupEnemies();
 	},
 
@@ -98,7 +98,7 @@ Enemies.prototype = {
 		enemy.setData('timer', 0);
 	},
 
-	updateEnemies: function(delta) {
+	updateEnemies: function(game, delta) {
 		this.enemies.children.iterate(function(enemy) {
 			var timer = enemy.getData('timer');
 
@@ -133,7 +133,7 @@ Enemies.prototype = {
 				enemy.anims.play(facingAnim, true);
 			} else {
 				enemy.destroy();
-				loseGame();
+				game.loseGame();
 			}
 		});
 	},
