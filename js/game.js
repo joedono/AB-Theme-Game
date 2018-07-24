@@ -23,6 +23,7 @@ var walls;
 
 var player;
 var playerSword;
+var family;
 var enemies;
 
 var cursors;
@@ -34,10 +35,23 @@ function preload() {
 
 	this.load.spritesheet('player', 'asset/image/player.png', { frameWidth: 16, frameHeight: 16 });
 	this.load.spritesheet('enemy', 'asset/image/enemy.png', { frameWidth: 16, frameHeight: 16 });
+	this.load.spritesheet('family', 'asset/image/family.png', { frameWidth: 16, frameHeight: 16 });
 }
 
 function create() {
 	cursors = this.input.keyboard.createCursorKeys();
+
+	this.anims.create({
+		key: 'familyCalm',
+		frames: [{ key: 'family', frame: 0 }],
+		frameRate: 20
+	});
+
+	this.anims.create({
+		key: 'familyScared',
+		frames: [{ key: 'family', frame: 1 }],
+		frameRate: 20
+	});
 
 	map = this.make.tilemap({ key: 'map' });
 	var floorTiles = map.addTilesetImage('Floor', 'floor');
@@ -46,6 +60,8 @@ function create() {
 	buildWalls(this);
 
 	player = new Player(this);
+	family = this.physics.add.sprite(240, 240, 'family');
+	family.anims.play('familyCalm', true);
 	enemies = new Enemies(this);
 
 	this.physics.add.collider(player.sprite, walls);
@@ -68,6 +84,16 @@ function buildWalls(game) {
 function update(time, delta) {
 	player.update();
 	enemies.update(delta);
+	updateFamily();
+}
+
+function updateFamily() {
+	var animation = 'familyCalm';
+	if(enemies.closingIn(family.x, family.y, FAMILY_PANIC_DISTANCE)) {
+		animation = 'familyScared';
+	}
+
+	family.anims.play(animation, true);
 }
 
 function strikeEnemy(enemy, sword) {

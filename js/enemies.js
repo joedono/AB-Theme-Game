@@ -145,5 +145,17 @@ Enemies.prototype = {
 				enemy.destroy();
 			}
 		});
+	},
+
+	closingIn: function(x, y, dist) {
+		var close = false;
+
+		this.enemies.children.iterate(function(enemy) {
+			if(Phaser.Math.Distance.Between(enemy.x, enemy.y, x, y) < dist) {
+				close = true;
+			}
+		});
+
+		return close;
 	}
 };
