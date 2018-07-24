@@ -14,6 +14,7 @@ sceneGameOver.create = function() {
 
   var scene = this;
   var player = prompt("Please enter your initials for high score", "AAA");
+  if(player == null) player = "AAA";
   player = player.substring(0, 3);
 
   this.getHighScores(player);

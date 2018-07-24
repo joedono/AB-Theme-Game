@@ -29,7 +29,7 @@ Enemies = function(game) {
 
 	this.buildPaths();
 	game.physics.add.collider(this.enemies, walls);
-	game.physics.add.collider(this.enemies, playerSword, game.strikeEnemy, null, game);
+	game.physics.add.collider(player.sprite, this.enemies, game.strikeEnemy);
 
 	this.spawnTimer = ENEMY_SPAWN_TIMER;
 
@@ -99,6 +99,9 @@ Enemies.prototype = {
 	},
 
 	updateEnemies: function(game, delta) {
+		var reachedFamily = false;
+		var manager = this;
+
 		this.enemies.children.iterate(function(enemy) {
 			var timer = enemy.getData('timer');
 
@@ -132,17 +135,22 @@ Enemies.prototype = {
 				enemy.setData('timer', timer);
 				enemy.anims.play(facingAnim, true);
 			} else {
-				enemy.destroy();
-				game.loseGame();
+				manager.enemies.remove(enemy, true);
+				reachedFamily = true;
 			}
 		});
+
+		if(reachedFamily) {
+			this.game.loseGame();
+		}
 	},
 
 	cleanupEnemies: function() {
+		var manager = this;
 		this.enemies.children.iterate(function(enemy) {
 			if(enemy.getData('health') <= 0) {
-				increaseScore();
-				enemy.destroy();
+				manager.game.increaseScore();
+				manager.enemies.remove(enemy, true);
 			}
 		});
 	},

@@ -19,7 +19,6 @@ var floorLayer;
 var walls;
 
 var player;
-var playerSword;
 var family;
 var enemies;
 var score = 0;

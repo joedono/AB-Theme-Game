@@ -62,9 +62,11 @@ scenePlaying.buildWalls = function() {
 }
 
 scenePlaying.update = function(time, delta) {
-	player.update();
-	enemies.update(delta);
-	this.updateFamily();
+	if(this.playing) {
+		player.update();
+		enemies.update(delta);
+		this.updateFamily();
+	}
 }
 
 scenePlaying.updateFamily = function() {
@@ -78,7 +80,7 @@ scenePlaying.updateFamily = function() {
 	}
 }
 
-scenePlaying.strikeEnemy = function(enemy, sword) {
+scenePlaying.strikeEnemy = function(sword, enemy) {
 	enemy.setData('health', enemy.getData('health') - 1);
 
 	// TODO Stop enemy temporarily
