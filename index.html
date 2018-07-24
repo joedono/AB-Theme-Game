@@ -11,6 +11,21 @@
 		canvas {
 			margin: auto;
 		}
+
+		.special {
+			background: url('/asset/icon.svg');
+			background-repeat: no-repeat;
+			background-size: 20px, 20px;
+			height: 20px;
+			width: 20px;
+			float: right;
+		}
+
+		.special a {
+			height: 100%;
+			width: 100%;
+			display: block;
+		}
 	</style>
 
 	<script type="text/javascript" src="js/vendor/phaser.js"></script>
@@ -29,6 +44,7 @@
 	<script type="text/javascript" src="js/game.js"></script>
 </head>
 <body>
+	<div class="special"><a href="/index.html"></a></div>
 	<div id="game"></div>
 </body>
 </html>
