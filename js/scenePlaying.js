@@ -45,6 +45,9 @@ scenePlaying.create = function() {
 	family.anims.play('familyCalm', true);
 
 	this.physics.add.collider(player.sprite, walls);
+
+	scoreText = this.add.text(8, 5, 'Blood Spilled: ' + score, { fontSize: '12px', fill: '#FFF' });;
+
 	this.playing = true;
 }
 
@@ -80,22 +83,6 @@ scenePlaying.updateFamily = function() {
 
 		family.anims.play(animation, true);
 	}
-}
-
-scenePlaying.strikeEnemy = function(sword, enemy) {
-	var health = enemy.getData('health');
-	health--;
-
-	if(health <= 0) {
-		enemy.destroy();
-	} else {
-		enemy.setData('health', health);
-		// TODO Stop enemy temporarily
-	}
-}
-
-scenePlaying.increaseScore = function() {
-	// TODO Increase Score
 }
 
 scenePlaying.loseGame = function() {

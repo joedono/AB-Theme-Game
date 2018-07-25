@@ -22,5 +22,25 @@ var player;
 var family;
 var enemies;
 var score = 0;
+var scoreText;
 
 var cursors;
+
+function strikeEnemy(sword, enemy) {
+	var health = enemy.getData('health');
+	health--;
+
+	if(health <= 0) {
+		increaseScore();
+		enemy.destroy();
+	} else {
+		increaseScore();
+		enemy.setData('health', health);
+		// TODO Stop enemy temporarily
+	}
+}
+
+function increaseScore() {
+	score += 15;
+	scoreText.setText('Blood Spilled: ' + score);
+}

@@ -29,7 +29,7 @@ Enemies = function(game) {
 
 	this.buildPaths();
 	game.physics.add.collider(this.enemies, walls);
-	game.physics.add.collider(player.sprite, this.enemies, game.strikeEnemy);
+	game.physics.add.collider(player.sprite, this.enemies, strikeEnemy);
 
 	this.spawnTimer = ENEMY_SPAWN_TIMER;
 
@@ -142,16 +142,6 @@ Enemies.prototype = {
 		if(reachedFamily) {
 			this.game.loseGame();
 		}
-	},
-
-	cleanupEnemies: function() {
-		var manager = this;
-		this.enemies.children.iterate(function(enemy) {
-			if(enemy.getData('health') <= 0) {
-				manager.game.increaseScore();
-				manager.enemies.remove(enemy, true);
-			}
-		});
 	},
 
 	closingIn: function(x, y, dist) {
