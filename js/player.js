@@ -3,6 +3,7 @@ Player = function(game) {
 
 	this.sprite = game.physics.add.sprite(250, 275, 'player');
 	this.sprite.setCollideWorldBounds(true);
+	this.sprite.setDepth(3);
 
 	game.anims.create({
 		key: 'playerRight',

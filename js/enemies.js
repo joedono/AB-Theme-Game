@@ -92,6 +92,7 @@ Enemies.prototype = {
 		var startPointY = path.y[0];
 
 		var enemy = this.enemies.create(startPointX, startPointY, 'enemy');
+		enemy.setDepth(2);
 		enemy.setData('health', ENEMY_HEALTH);
 		enemy.setData('path', path);
 		enemy.setData('timer', 0);

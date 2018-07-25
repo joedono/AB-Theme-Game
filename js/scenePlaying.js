@@ -41,6 +41,7 @@ scenePlaying.create = function() {
 	player = new Player(this);
 	enemies = new Enemies(this);
 	family = this.physics.add.sprite(240, 240, 'family');
+	family.setDepth(4);
 	family.anims.play('familyCalm', true);
 
 	this.physics.add.collider(player.sprite, walls);
@@ -54,6 +55,7 @@ scenePlaying.buildWalls = function() {
 		var wall = walls.create(mapWall.x, mapWall.y, 'wall');
 		wall.setScale(mapWall.width / 8, mapWall.height / 8);
 		wall.setOrigin(0);
+		wall.setDepth(1);
 		wall.body.width = mapWall.width;
 		wall.body.height = mapWall.height;
 	});
