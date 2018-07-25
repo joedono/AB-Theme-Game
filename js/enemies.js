@@ -41,7 +41,6 @@ Enemies.prototype = {
 		delta = delta / 1000;
 		this.updateSpawnTimer(delta);
 		this.updateEnemies(this.game, delta);
-		this.cleanupEnemies();
 	},
 
 	buildPaths: function() {
@@ -135,7 +134,6 @@ Enemies.prototype = {
 				enemy.setData('timer', timer);
 				enemy.anims.play(facingAnim, true);
 			} else {
-				manager.enemies.remove(enemy, true);
 				reachedFamily = true;
 			}
 		});

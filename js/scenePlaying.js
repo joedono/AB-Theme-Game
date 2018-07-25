@@ -39,9 +39,9 @@ scenePlaying.create = function() {
 	this.buildWalls();
 
 	player = new Player(this);
+	enemies = new Enemies(this);
 	family = this.physics.add.sprite(240, 240, 'family');
 	family.anims.play('familyCalm', true);
-	enemies = new Enemies(this);
 
 	this.physics.add.collider(player.sprite, walls);
 	this.playing = true;
@@ -81,9 +81,15 @@ scenePlaying.updateFamily = function() {
 }
 
 scenePlaying.strikeEnemy = function(sword, enemy) {
-	enemy.setData('health', enemy.getData('health') - 1);
+	var health = enemy.getData('health');
+	health--;
 
-	// TODO Stop enemy temporarily
+	if(health <= 0) {
+		enemy.destroy();
+	} else {
+		enemy.setData('health', health);
+		// TODO Stop enemy temporarily
+	}
 }
 
 scenePlaying.increaseScore = function() {
