@@ -8,6 +8,7 @@ scenePlaying.preload = function() {
 	this.load.spritesheet('player', 'asset/image/player.png', { frameWidth: 16, frameHeight: 16 });
 	this.load.spritesheet('enemy', 'asset/image/enemy.png', { frameWidth: 16, frameHeight: 16 });
 	this.load.spritesheet('family', 'asset/image/family.png', { frameWidth: 16, frameHeight: 16 });
+	this.load.spritesheet('sword-strike', 'asset/image/sword-strike.png', { frameWidth: 24, frameHeight: 24 });
 }
 
 scenePlaying.create = function() {
@@ -32,12 +33,20 @@ scenePlaying.create = function() {
 		frameRate: 20
 	});
 
+	this.anims.create({
+		key: 'swordStrike',
+		frames: this.anims.generateFrameNumbers('sword-strike', { start: 0, end: 3 }),
+		frameRate: 20
+	});
+
 	map = this.make.tilemap({ key: 'map' });
 	var floorTiles = map.addTilesetImage('Floor', 'floor');
 	floorLayer = map.createStaticLayer('Floor', floorTiles, 0, 0);
 
 	this.buildWalls();
 
+	playerSword = this.physics.add.sprite(-100, -100, 'sword-strike');
+	playerSword.on('animationcomplete', playerSwordSwingComplete, playerSword);
 	player = new Player(this);
 	enemies = new Enemies(this);
 	family = this.physics.add.sprite(240, 240, 'family');

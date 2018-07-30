@@ -3,6 +3,7 @@ var SCREEN_HEIGHT = 480;
 
 var PLAYER_SPEED = 200;
 var PLAYER_SWING_SWORD_KEY = Phaser.Input.Keyboard.KeyCodes.Z;
+var PLAYER_SWORD_LENGTH = 30;
 
 var ENEMY_OFFSET_X = 8;
 var ENEMY_OFFSET_Y = 8;

@@ -29,7 +29,7 @@ Enemies = function(game) {
 
 	this.buildPaths();
 	game.physics.add.collider(this.enemies, walls);
-	game.physics.add.collider(player.sprite, this.enemies, strikeEnemy);
+	game.physics.add.collider(playerSword, this.enemies, strikeEnemy);
 
 	this.spawnTimer = ENEMY_SPAWN_TIMER;
 

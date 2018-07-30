@@ -19,6 +19,7 @@ var floorLayer;
 var walls;
 
 var player;
+var playerSword;
 var family;
 var enemies;
 var score = 0;
@@ -36,11 +37,17 @@ function strikeEnemy(sword, enemy) {
 	} else {
 		increaseScore();
 		enemy.setData('health', health);
-		// TODO Stop enemy temporarily
+		// TODO Stop enemy temporarily and make them invincible for a few frames
 	}
 }
 
 function increaseScore() {
 	score += 15;
 	scoreText.setText('Blood Spilled: ' + score);
+}
+
+function playerSwordSwingComplete(animation, frame) {
+	console.log('completed sword swing');
+	player.swingingSword = false;
+	playerSword.setPosition(-100, -100);
 }

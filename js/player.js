@@ -29,6 +29,7 @@ Player = function(game) {
 		frameRate: 20
 	});
 
+	this.swingingSword = false;
 	this.swordSwingKey = game.input.keyboard.addKey(PLAYER_SWING_SWORD_KEY);
 };
 
@@ -36,7 +37,9 @@ Player.prototype = {
 	update: function() {
 		this.move();
 
-		if(Phaser.Input.Keyboard.JustDown(this.swordSwingKey)) {
+		if(this.swingingSword) {
+			this.moveSword();
+		} else if(Phaser.Input.Keyboard.JustDown(this.swordSwingKey)) {
 			this.swingSword();
 		}
 	},
@@ -64,6 +67,53 @@ Player.prototype = {
 	},
 
 	swingSword: function() {
-		// TODO Swing Sword
+		this.swingingSword = true;
+		this.moveSword();
+		playerSword.play('swordStrike', true, 0);
+	},
+
+	moveSword: function() {
+		var coordinates = this.getSwordCoordinates();
+		var x = this.sprite.x + coordinates.x;
+		var y = this.sprite.y + coordinates.y;
+		var angle = coordinates.angle();
+
+		playerSword.setPosition(x, y);
+		playerSword.setRotation(angle);
+	},
+
+	getSwordCoordinates: function() {
+		var coordinates = new Phaser.Math.Vector2();
+		var facing = this.sprite.anims.getCurrentKey();
+		var velocity = this.sprite.body.velocity.clone();
+		var x = 0;
+		var y = 0;
+
+		if(velocity.length == 0) { // Player standing still
+			switch(facing) {
+				case 'playerLeft':
+					x -= 1;
+					break;
+				case 'playerRight':
+					x += 1;
+					break;
+				case 'playerUp':
+					y -= 1;
+					break;
+				case 'playerDown':
+					y += 1;
+					break;
+			}
+
+			coordinates.x = x;
+			coordinates.y = y;
+		} else {
+			coordinates.x = velocity.x;
+			coordinates.y = velocity.y;
+		}
+
+		coordinates.normalize();
+		coordinates.scale(PLAYER_SWORD_LENGTH);
+		return coordinates;
 	}
 };
