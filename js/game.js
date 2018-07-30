@@ -47,7 +47,6 @@ function increaseScore() {
 }
 
 function playerSwordSwingComplete(animation, frame) {
-	console.log('completed sword swing');
 	player.swingingSword = false;
 	playerSword.setPosition(-100, -100);
 }

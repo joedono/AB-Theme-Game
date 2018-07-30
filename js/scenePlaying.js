@@ -36,7 +36,7 @@ scenePlaying.create = function() {
 	this.anims.create({
 		key: 'swordStrike',
 		frames: this.anims.generateFrameNumbers('sword-strike', { start: 0, end: 3 }),
-		frameRate: 20
+		frameRate: 30
 	});
 
 	map = this.make.tilemap({ key: 'map' });

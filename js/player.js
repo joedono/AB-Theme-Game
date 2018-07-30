@@ -84,12 +84,13 @@ Player.prototype = {
 
 	getSwordCoordinates: function() {
 		var coordinates = new Phaser.Math.Vector2();
-		var facing = this.sprite.anims.getCurrentKey();
 		var velocity = this.sprite.body.velocity.clone();
 		var x = 0;
 		var y = 0;
 
-		if(velocity.length == 0) { // Player standing still
+		if(velocity.length() == 0) { // Player standing still
+			var facing = this.sprite.anims.getCurrentKey();
+
 			switch(facing) {
 				case 'playerLeft':
 					x -= 1;
@@ -103,6 +104,8 @@ Player.prototype = {
 				case 'playerDown':
 					y += 1;
 					break;
+				default:
+					x += 1;
 			}
 
 			coordinates.x = x;
