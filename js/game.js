@@ -29,15 +29,18 @@ var cursors;
 
 function strikeEnemy(sword, enemy) {
 	var health = enemy.getData('health');
+	var invincible = enemy.getData('invincible');
 	health--;
 
-	if(health <= 0) {
-		increaseScore();
-		enemy.destroy();
-	} else {
-		increaseScore();
-		enemy.setData('health', health);
-		// TODO Stop enemy temporarily and make them invincible for a few frames
+	if(invincible <= 0) {
+		if(health <= 0) {
+			increaseScore();
+			enemy.destroy();
+		} else {
+			increaseScore();
+			enemy.setData('health', health);
+			enemy.setData('invincible', ENEMY_INVINCIBLE_TIME);
+		}
 	}
 }
 

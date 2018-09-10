@@ -25,6 +25,12 @@ Enemies = function(game) {
 		frameRate: 20
 	});
 
+	game.anims.create({
+		key: 'enemyInvincible',
+		frames: [{ key: 'enemy', frame: 4 }],
+		frameRate: 20
+	})
+
 	this.enemies = game.physics.add.group();
 
 	this.buildPaths();
@@ -96,6 +102,7 @@ Enemies.prototype = {
 		enemy.setData('health', ENEMY_HEALTH);
 		enemy.setData('path', path);
 		enemy.setData('timer', 0);
+		enemy.setData('invincible', 0);
 	},
 
 	updateEnemies: function(game, delta) {
@@ -104,8 +111,13 @@ Enemies.prototype = {
 
 		this.enemies.children.iterate(function(enemy) {
 			var timer = enemy.getData('timer');
+			var invincible = enemy.getData('invincible');
 
-			if(timer < ENEMY_PATH_TIMER) {
+			if(invincible > 0) {
+				enemy.anims.play('enemyInvincible', true);
+				invincible -= delta;
+				enemy.setData('invincible', invincible);
+			} else if(timer < ENEMY_PATH_TIMER) {
 				var source = new Phaser.Geom.Point(enemy.x, enemy.y);
 				var path = enemy.getData('path');
 
