@@ -1,14 +1,14 @@
 var scenePlaying = new Phaser.Scene('Playing');
 
 scenePlaying.preload = function() {
-	this.load.tilemapTiledJSON('map', '/images/game/config/map.json');
-	this.load.spritesheet('floor', '/images/game/image/floor.png', { frameWidth: 8, frameHeight: 8 });
-	this.load.image('wall', '/images/game/image/wall.png');
+	this.load.tilemapTiledJSON('map', 'images/game/config/map.json');
+	this.load.spritesheet('floor', 'images/game/image/floor.png', { frameWidth: 8, frameHeight: 8 });
+	this.load.image('wall', 'images/game/image/wall.png');
 
-	this.load.spritesheet('player', '/images/game/image/player.png', { frameWidth: 16, frameHeight: 16 });
-	this.load.spritesheet('enemy', '/images/game/image/enemy.png', { frameWidth: 16, frameHeight: 16 });
-	this.load.spritesheet('family', '/images/game/image/family.png', { frameWidth: 16, frameHeight: 16 });
-	this.load.spritesheet('sword-strike', '/images/game/image/sword-strike.png', { frameWidth: 24, frameHeight: 24 });
+	this.load.spritesheet('player', 'images/game/image/player.png', { frameWidth: 16, frameHeight: 16 });
+	this.load.spritesheet('enemy', 'images/game/image/enemy.png', { frameWidth: 16, frameHeight: 16 });
+	this.load.spritesheet('family', 'images/game/image/family.png', { frameWidth: 16, frameHeight: 16 });
+	this.load.spritesheet('sword-strike', 'images/game/image/sword-strike.png', { frameWidth: 24, frameHeight: 24 });
 }
 
 scenePlaying.create = function() {

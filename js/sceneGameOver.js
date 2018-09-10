@@ -3,7 +3,7 @@ var sceneGameOver = new Phaser.Scene('GameOver');
 var highScores = new Array();
 
 sceneGameOver.preload = function() {
-  this.load.image('background', '/images/game/image/background.png');
+  this.load.image('background', 'images/game/image/background.png');
 }
 
 sceneGameOver.create = function() {
