@@ -1,4 +1,4 @@
-var DEBUG = true;
+var DEBUG = false;
 
 var SCREEN_WIDTH = 480;
 var SCREEN_HEIGHT = 480;
