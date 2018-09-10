@@ -99,10 +99,10 @@ Enemies.prototype = {
 
 		var enemy = this.enemies.create(startPointX, startPointY, 'enemy');
 		enemy.setDepth(2);
-		enemy.setData('health', ENEMY_HEALTH);
 		enemy.setData('path', path);
 		enemy.setData('timer', 0);
-		enemy.setData('invincible', 0);
+		enemy.setData('dead', false);
+		enemy.setData('deathTimer', ENEMY_DEATH_TIME);
 	},
 
 	updateEnemies: function(game, delta) {
@@ -111,12 +111,13 @@ Enemies.prototype = {
 
 		this.enemies.children.iterate(function(enemy) {
 			var timer = enemy.getData('timer');
-			var invincible = enemy.getData('invincible');
+			var dead = enemy.getData('dead');
+			var deathTimer = enemy.getData('deathTimer');
 
-			if(invincible > 0) {
+			if(dead) {
 				enemy.anims.play('enemyInvincible', true);
-				invincible -= delta;
-				enemy.setData('invincible', invincible);
+				deathTimer -= delta;
+				enemy.setData('deathTimer', deathTimer);
 			} else if(timer < ENEMY_PATH_TIMER) {
 				var source = new Phaser.Geom.Point(enemy.x, enemy.y);
 				var path = enemy.getData('path');
@@ -154,6 +155,15 @@ Enemies.prototype = {
 		if(reachedFamily) {
 			this.game.loseGame();
 		}
+
+		this.enemies.children.iterate(function(enemy) {
+			if(enemy) {
+				var deathTimer = enemy.getData('deathTimer');
+				if(deathTimer <= 0) {
+					enemy.destroy();
+				}
+			}
+		})
 	},
 
 	resetSpawnTimer: function() {

@@ -28,19 +28,11 @@ var scoreText;
 var cursors;
 
 function strikeEnemy(sword, enemy) {
-	var health = enemy.getData('health');
-	var invincible = enemy.getData('invincible');
-	health--;
+	var dead = enemy.getData('dead');
 
-	if(invincible <= 0) {
-		if(health <= 0) {
-			increaseScore();
-			enemy.destroy();
-		} else {
-			increaseScore();
-			enemy.setData('health', health);
-			enemy.setData('invincible', ENEMY_INVINCIBLE_TIME);
-		}
+	if(!dead) {
+		increaseScore();
+		enemy.setData('dead', true);
 	}
 }
 
