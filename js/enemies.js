@@ -31,7 +31,7 @@ Enemies = function(game) {
 	game.physics.add.collider(this.enemies, walls);
 	game.physics.add.collider(playerSword, this.enemies, strikeEnemy);
 
-	this.spawnTimer = ENEMY_SPAWN_TIMER;
+	this.spawnTimer = ENEMY_MAX_SPAWN_TIMER;
 
 	this.spawnEnemy();
 };
@@ -82,7 +82,7 @@ Enemies.prototype = {
 		this.spawnTimer -= delta;
 		if(this.spawnTimer <= 0) {
 			this.spawnEnemy();
-			this.spawnTimer = ENEMY_SPAWN_TIMER;
+			this.resetSpawnTimer();
 		}
 	},
 
@@ -142,6 +142,18 @@ Enemies.prototype = {
 		if(reachedFamily) {
 			this.game.loseGame();
 		}
+	},
+
+	resetSpawnTimer: function() {
+	  if (score > ENEMY_MAX_DIFFICULTY_SCORE) {
+			this.spawnTimer = ENEMY_MIN_SPAWN_TIMER;
+		} else {
+			var progress = score / ENEMY_MAX_DIFFICULTY_SCORE;
+			var timers = [ENEMY_MAX_SPAWN_TIMER, ENEMY_MIN_SPAWN_TIMER];
+			this.spawnTimer = Phaser.Math.Interpolation.Linear(timers, progress);
+		}
+
+		console.log(this.spawnTimer);
 	},
 
 	closingIn: function(x, y, dist) {
