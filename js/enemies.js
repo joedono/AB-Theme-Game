@@ -174,8 +174,6 @@ Enemies.prototype = {
 			var timers = [ENEMY_MAX_SPAWN_TIMER, ENEMY_MIN_SPAWN_TIMER];
 			this.spawnTimer = Phaser.Math.Interpolation.Linear(timers, progress);
 		}
-
-		console.log(this.spawnTimer);
 	},
 
 	closingIn: function(x, y, dist) {
