@@ -18,12 +18,14 @@ sceneGameOver.create = function() {
   if(player == null) player = "AAA";
   player = player.substring(0, 3);
 
-  this.getHighScores(player);
+  if(!DEBUG) {
+    this.postHighScore(player);
+  }
 }
 
-sceneGameOver.getHighScores = function(initials) {
+sceneGameOver.postHighScore = function(initials) {
   var scene = this;
-  $.get("/highscores.json", { name: initials, score: score })
+  $.post("/game/highscore", { name: initials, score: score })
     .done(function(data) {
       highScores = data;
       var highScoreStyle = { fontSize: '18px', fill: '#000' , fontStyle: 'bold' };
