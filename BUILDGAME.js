@@ -20,19 +20,36 @@ function packageGame() {
   var fs = require('fs');
   var compressor = require('node-minify');
 
-  var stream = fs.createWriteStream('dist.js', { flags: 'a' });
+  // Clean build directory
+  if (!fs.existsSync('dist')){
+    fs.mkdirSync('dist');
+  }
+
+  if (fs.existsSync('dist/dist.js')){
+    fs.unlinkSync('dist/dist.js');
+  }
+
+  if (fs.existsSync('dist/dist.min.js')){
+    fs.unlinkSync('dist/dist.min.js');
+  }
+
+  // Write all script files defined above to a central dist file
+  var stream = fs.createWriteStream('dist/dist.js', { flags: 'as' });
   scripts.forEach(function(script) {
     var scriptText = fs.readFileSync(script);
     stream.write(scriptText);
   });
   stream.end();
 
-  compressor.minify({
-    compressor: 'gcc',
-    input: 'dist.js',
-    output: 'dist.min.js',
-    callback: function(err, min) {}
-  });
+  // Minify dist file. Use setTimeout so stream above has time to close
+  setTimeout(function() {
+    compressor.minify({
+      compressor: 'gcc',
+      input: 'dist/dist.js',
+      output: 'dist/dist.min.js',
+      callback: function(err, min) {}
+    });
+  }, 100);
 }
 
 if(typeof(process) != "undefined" && process.argv[2]) {

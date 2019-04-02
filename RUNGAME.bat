@@ -1,3 +1,3 @@
 call npm install
 echo Server Started
-call node RUNME.js "%CD%"
+call node RUNGAME.js "%CD%"
