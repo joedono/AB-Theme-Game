@@ -18,6 +18,7 @@ function importGame() {
 
 function packageGame() {
   var fs = require('fs');
+  var compressor = require('node-minify');
 
   var stream = fs.createWriteStream('dist.js', { flags: 'a' });
   scripts.forEach(function(script) {
@@ -25,6 +26,13 @@ function packageGame() {
     stream.write(scriptText);
   });
   stream.end();
+
+  compressor.minify({
+    compressor: 'gcc',
+    input: 'dist.js',
+    output: 'dist.min.js',
+    callback: function(err, min) {}
+  });
 }
 
 if(typeof(process) != "undefined" && process.argv[2]) {
