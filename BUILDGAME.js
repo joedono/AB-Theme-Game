@@ -21,15 +21,15 @@ function packageGame() {
   var compressor = require('node-minify');
 
   // Clean build directory
-  if (!fs.existsSync('dist')){
+  if (!fs.existsSync('dist')) {
     fs.mkdirSync('dist');
   }
 
-  if (fs.existsSync('dist/dist.js')){
+  if (fs.existsSync('dist/dist.js')) {
     fs.unlinkSync('dist/dist.js');
   }
 
-  if (fs.existsSync('dist/dist.min.js')){
+  if (fs.existsSync('dist/dist.min.js')) {
     fs.unlinkSync('dist/dist.min.js');
   }
 
@@ -54,4 +54,6 @@ function packageGame() {
 
 if(typeof(process) != "undefined" && process.argv[2]) {
   packageGame();
+} else {
+  importGame();
 }
