@@ -1,5 +1,6 @@
 // Add game scripts here
 var scripts = [
+  'src/states/playing.js',
   'src/config.js',
   'src/game.js'
 ];

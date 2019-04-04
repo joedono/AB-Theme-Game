@@ -1,4 +1,4 @@
-var DEBUG = true;
+var DEBUG = Kiwi.DEBUG_OFF;
 
-var SCREEN_WIDTH = 480;
-var SCREEN_HEIGHT = 480;
+var SCREEN_WIDTH = 800;
+var SCREEN_HEIGHT = 600;
