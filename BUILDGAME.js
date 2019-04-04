@@ -1,7 +1,7 @@
 // Add game scripts here
 var scripts = [
-  'js/config.js',
-  'js/game.js'
+  'src/config.js',
+  'src/game.js'
 ];
 
 function importGame() {
