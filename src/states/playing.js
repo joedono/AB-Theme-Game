@@ -8,7 +8,7 @@ statePlaying.preload = function() {
 	this.addImage('background', 'images/game/image/background.png');
 	this.addImage('bullet', 'images/game/image/bullet.png');
 	this.addImage('ground', 'images/game/image/ground.png');
-	this.addImage('bomb', 'images/game/image/bomb.png');
+	this.addImage('bomb', 'images/game/image/war-bomb.png');
 
 	this.addSpriteSheet('characterSprite', 'images/game/image/soldier.png', 150, 117);
 	this.addSpriteSheet('guns', 'images/game/image/guns.png', 150, 117);
@@ -148,31 +148,72 @@ statePlaying.movement = function() {
 }
 
 statePlaying.switchGun = function() {
+	var playSound = false;
+	if(this.oneKey.isDown) {
+		playSound = true;
+		this.gun.animation.play("rifle");
+		this.oneKey.reset();
+	}
 
+	if(this.twoKey.isDown) {
+		playSound = true;
+		this.gun.animation.play("sniper");
+		this.twoKey.reset();
+	}
+
+	if(this.threeKey.isDown) {
+		playSound = true;
+		this.gun.animation.play("machineGun");
+		this.threeKey.reset();
+	}
+
+	if(playSound && this.backgroundMusic.isPlaying) {
+		this.switchSound.stop();
+		this.switchSound.play();
+	}
 }
 
 statePlaying.toggleMusic = function() {
+	if(this.mouse.isDown && this.audioToggle.box.bounds.containsPoint(new Kiwi.Geom.Point(this.mouse.x, this.mouse.y))) {
+		this.audioToggle.animation.nextFrame();
 
+		if(this.backgroundMusic.isPlaying) {
+			this.backgroundMusic.stop();
+		} else {
+			this.backgroundMusic.play();
+		}
+
+		this.mouse.reset();
+	}
 }
 
 statePlaying.shoot = function() {
 
 }
 
-statePlaying.checkPlatform = function() {
-
-}
-
-statePlaying.checkCollisions = function() {
-
-}
-
-statePlaying.checkBounce = function() {
-
-}
-
 statePlaying.playerHealth = function() {
+	this.playersHealth.update();
+	bombsHitPlay = this.bombGroup.members;
+	this.playersHealth.x = this.character.x + 25;
+	this.playersHealth.y = this.character.y + 10;
 
+	for(var i = 0; i < bombsHitPlay.length; i++) {
+		if(this.character.physics.overlaps(bombsHitPlay[i])) {
+			if(this.backgroundMusic.isPlaying) {
+				this.boomSound.stop();
+				this.boomSound.play();
+			}
+
+			this.playersHealth.counter.current -= 10;
+			this.explodeGroup.addChild(new Explosion(this, bombsHitPlay[i].x - 60, bombsHitPlay[i].y - 85));
+			bombsHitPlay[i].destroy();
+		}
+	}
+}
+
+statePlaying.spawnBomb = function() {
+	var b = new Bomb(this, this.game.stage.width, 386);
+	this.bombGroup.addChild(b);
 }
 
 // Collision Handlers
@@ -273,7 +314,7 @@ var Bomb = function(state, x, y) {
 	this.box.hitbox = new Kiwi.Geom.Rectangle(20, 20, 25, 25);
 	this.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this, this.box));
 	this.physics.acceleration.y = 4;
-	this.physics.velociy.x = -12;
+	this.physics.velocity.x = -12;
 }
 Kiwi.extend(Bomb, Kiwi.GameObjects.Sprite);
 
