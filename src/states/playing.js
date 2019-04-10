@@ -106,6 +106,7 @@ statePlaying.create = function() {
 	this.game.huds.defaultHUD.addWidget(this.ammoBar);
 }
 
+// Update
 statePlaying.update = function() {
 	Kiwi.State.prototype.update.call(this);
 
@@ -120,7 +121,30 @@ statePlaying.update = function() {
 }
 
 statePlaying.movement = function() {
+	var tx = 0;
+	var animation = "idle";
 
+	if (this.leftKey.isDown) tx -= 3;
+	if (this.rightKey.isDown) tx += 3;
+
+	if(tx < 0) {
+		this.character.scaleX = -1;
+		this.gun.scaleX = -1;
+		animation = "walk";
+	} else if(tx > 0) {
+		this.character.scaleX = 1;
+		this.gun.scaleX = 1;
+		animation = "walk";
+	}
+
+	if(this.character.animation.currentAnimation.name !== animation) {
+		this.character.animation.play(animation);
+	}
+
+	this.character.transform.x = Kiwi.Utils.GameMath.clamp(this.character.transform.x + tx, 600, 3);
+
+	this.gun.x = this.character.x;
+	this.gun.y = this.character.y;
 }
 
 statePlaying.switchGun = function() {
@@ -149,6 +173,51 @@ statePlaying.checkBounce = function() {
 
 statePlaying.playerHealth = function() {
 
+}
+
+// Collision Handlers
+statePlaying.checkBounce = function() {
+	var bombBounce = this.bombGroup.members;
+	for(var i = 0; i < bombBounce.length; i++) {
+		if(bombBounce[i].physics.overlaps(this.platform, true)) {
+			bombBounce[i].bounce();
+		}
+	}
+}
+
+statePlaying.checkCollisions = function() {
+	var bullets = this.bulletGroup.members;
+	var bombs = this.bombGroup.members;
+
+	for(var i = 0; i < bullets.length; i++) {
+		for(var j = 0; j < bombs.length; j++) {
+			if(bullets[i].physics.overlaps(bombs[j])) {
+				if(this.backgroundMusic.isPlaying) {
+					this.boomSound.stop();
+					this.boomSound.play();
+				}
+
+				this.explodeGroup.addChild(new Explosion(this, bullets[i].x - 60, bullets[i].y - 85));
+
+				this.score += 10;
+				this.scoreBoard.text = "Your Score: " + this.score;
+
+				bombs[j].destroy();
+				bullets[i].destroy();
+
+				break;
+			}
+
+			if(bombs[j].x < -200) {
+				bombs[j].destroy();
+				break;
+			}
+		}
+	}
+}
+
+statePlaying.checkPlatform = function() {
+	this.character.physics.overlaps(this.platform, true);
 }
 
 // Classes
