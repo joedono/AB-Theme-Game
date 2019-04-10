@@ -30,7 +30,7 @@ statePlaying.create = function() {
 	this.background = new Kiwi.GameObjects.StaticImage(this, this.textures['background'], 0, 0);
 
 	this.character = new Soldier(this, 150, 310);
-	this.gun = new Guns(this.this.character.x, this.character.y);
+	this.gun = new Guns(this, this.character.x, this.character.y);
 	this.platform = new Platform(this, 0, 475);
 
 	this.audioToggle = new Kiwi.GameObjects.Sprite(this, this.textures["audioOnOff"], 700, 0, true);
@@ -104,6 +104,51 @@ statePlaying.create = function() {
 	this.game.huds.defaultHUD.addWidget(this.scoreBoard);
 	this.game.huds.defaultHUD.addWidget(this.playersHealth);
 	this.game.huds.defaultHUD.addWidget(this.ammoBar);
+}
+
+statePlaying.update = function() {
+	Kiwi.State.prototype.update.call(this);
+
+	this.movement();
+	this.switchGun();
+	this.toggleMusic();
+	this.shoot();
+	this.checkPlatform();
+	this.checkCollisions();
+	this.checkBounce();
+	this.playerHealth();
+}
+
+statePlaying.movement = function() {
+
+}
+
+statePlaying.switchGun = function() {
+
+}
+
+statePlaying.toggleMusic = function() {
+
+}
+
+statePlaying.shoot = function() {
+
+}
+
+statePlaying.checkPlatform = function() {
+
+}
+
+statePlaying.checkCollisions = function() {
+
+}
+
+statePlaying.checkBounce = function() {
+
+}
+
+statePlaying.playerHealth = function() {
+
 }
 
 // Classes
