@@ -153,3 +153,35 @@ Kiwi.extend(Platform, Kiwi.GameObjects.Sprite);
 Platform.prototype.update = function() {
 	Kiwi.GameObjects.Sprite.prototype.update.call(this);
 }
+
+var Bomb = function(state, x, y) {
+	Kiwi.GameObjects.Sprite.call(this, state, state.textures["bomb"], x, y);
+	this.box.hitbox = new Kiwi.Geom.Rectangle(20, 20, 25, 25);
+	this.physics = this.components.add(new Kiwi.Components.ArcadePhysics(this, this.box));
+	this.physics.acceleration.y = 4;
+	this.physics.velociy.x = -12;
+}
+Kiwi.extend(Bomb, Kiwi.GameObjects.Sprite);
+
+Bomb.prototype.update = function() {
+	Kiwi.GameObjects.Sprite.prototype.update.call(this);
+	this.rotation -= 0.05;
+}
+
+Bomb.prototype.bounce = function() {
+	this.physics.velociy.y = -22;
+}
+
+var Explosion = function(state, x, y) {
+	Kiwi.GameObjects.Sprite.call(this, state, state.textures["explosion"], x, y);
+	this.animation.add("explode", [0, 1, 2, 3, 4], 0.1, false);
+	this.animation.play("explode");
+}
+Kiwi.extend(Explosion, Kiwi.GameObjects.Sprite);
+
+Explosion.prototype.update = function() {
+	Kiwi.GameObjects.Sprite.prototype.update.call(this);
+	if (this.animation.currentCell == 4) {
+		this.destroy();
+	}
+}
