@@ -379,7 +379,7 @@ Bomb.prototype.update = function() {
 }
 
 Bomb.prototype.bounce = function() {
-	this.physics.velociy.y = -22;
+	this.physics.velocity.y = -22;
 }
 
 var Explosion = function(state, x, y) {
