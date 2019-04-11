@@ -9,4 +9,4 @@ var myGame = new Kiwi.Game("game", "Tutorial", null, options);
 setTimeout(function() {
 	myGame.states.addState(statePlaying);
 	myGame.states.switchState("statePlaying");
-}, 100);
+}, 1000);

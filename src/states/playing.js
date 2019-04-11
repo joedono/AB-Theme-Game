@@ -20,7 +20,7 @@ statePlaying.preload = function() {
 	this.addAudio('sniper', 'images/game/sound/sniper.mp3');
 	this.addAudio('switchSound', 'images/game/sound/switch.mp3');
 	this.addAudio('boomSound', 'images/game/sound/boom.mp3');
-	this.addAudio('backgroundMusic', 'images/game/sound/background-usic.mp3');
+	this.addAudio('backgroundMusic', 'images/game/sound/background-music.mp3');
 }
 
 statePlaying.create = function() {
@@ -188,7 +188,62 @@ statePlaying.toggleMusic = function() {
 }
 
 statePlaying.shoot = function() {
+	if (this.reloadKey.isDown) {
+		this.ammoBar.counter.current = 30;
+		this.reloadKey.reset();
 
+		if (this.backgroundMusic.isPlaying) {
+			this.switchSound.stop();
+			this.switchSound.play();
+		}
+	}
+
+	if (this.mouse.isDown && this.ammoBar.counter.current > 0) {
+		this.ammoBar.counter.current -= 1;
+
+		if (this.gun.animation.currentAnimation.name === "machineGun") {
+			if(this.character.scaleX === -1) {
+				this.bulletGroup.addChild(new Bullet(this, this.character.x + 30, this.character.y + 75, 200 * this.character.scaleX, 0));
+			} else if(this.character.scaleX === 1) {
+				this.bulletGroup.addChild(new Bullet(this, this.character.x + 110, this.character.y + 75, 200 * this.character.scaleX, 0));
+			}
+
+			if(this.backgroundMusic.isPlaying) {
+				this.machineGunSound.play();
+			}
+		} else if (this.gun.animation.currentAnimation.name === "rifle") {
+			if(this.character.scaleX === -1) {
+				this.bulletGroup.addChild(new Bullet(this, this.character.x + 20, this.character.y + 80, 200 * this.character.scaleX, 0));
+				this.bulletGroup.addChild(new Bullet(this, this.character.x + 20, this.character.y + 80, 180 * this.character.scaleX, 25));
+				this.bulletGroup.addChild(new Bullet(this, this.character.x + 20, this.character.y + 80, 180 * this.character.scaleX, -25));
+			} else if(this.character.scaleX === 1) {
+				this.bulletGroup.addChild(new Bullet(this, this.character.x + 120, this.character.y + 80, 200 * this.character.scaleX, 0));
+				this.bulletGroup.addChild(new Bullet(this, this.character.x + 120, this.character.y + 80, 180 * this.character.scaleX, 25));
+				this.bulletGroup.addChild(new Bullet(this, this.character.x + 120, this.character.y + 80, 180 * this.character.scaleX, -25));
+			}
+
+			if(this.backgroundMusic.isPlaying) {
+				this.rifleSound.stop();
+				this.rifleSound.play();
+			}
+
+			this.ammoBar.counter.current -= 2;
+			this.mouse.reset();
+		} else if (this.gun.animation.currentAnimation.name === "sniper") {
+			if(this.character.scaleX === -1) {
+				this.bulletGroup.addChild(new Bullet(this, this.character.x - 5, this.character.y + 72, 200 * this.character.scaleX, 0));
+			} else if(this.character.scaleX === 1) {
+				this.bulletGroup.addChild(new Bullet(this, this.character.x + 145, this.character.y + 72, 200 * this.character.scaleX, 0));
+			}
+
+			if(this.backgroundMusic.isPlaying) {
+				this.sniperSound.stop();
+				this.sniperSound.play();
+			}
+
+			this.mouse.reset();
+		}
+	}
 }
 
 statePlaying.playerHealth = function() {
